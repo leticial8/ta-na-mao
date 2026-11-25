@@ -1,0 +1,21 @@
+TÍTULO DO DOCUMENTO: Tá na Mão: o projeto completo
+
+Apresento o Tá na Mão.
+
+Nas últimas semanas, mostrei aqui um problema: o motoboy perde tempo demais dentro do shopping. Depois, mostrei a ideia: criar a quarta parte do delivery, o carregador.
+
+Hoje está tudo junto, em detalhe:
+
+🛒 O carrinho: formato de carrinho de compras, que todo shopping já conhece, com cesto térmico fechado, para-choque acolchoado, rodas silenciosas e painel de LED para anúncios.
+🦺 A equipe: colete com crachá e QR code, para ninguém confundir um carregador com alguém levando a comida de outra pessoa.
+👟 Os benefícios: camisetas dry fit por meta de entregas, parceria com uma marca brasileira de tênis e um patrocínio de água escolhido em enquete.
+📍 O ponto: a praça fica no 2º piso. Hoje o motoboy desce a rampa, estaciona, sobe e pega duas escadas rolantes. Com o Tá na Mão, o carregador desce pelo elevador de serviço e entrega na porta.
+📱 O sistema: app do carregador, painel do restaurante e totem na cabine, com dois códigos de confirmação.
+
+O próximo passo é um piloto de 30 dias em um shopping.
+
+Se você trabalha com shopping, restaurante, delivery, fabricação de carrinhos ou quer patrocinar a equipe, vamos conversar: WhatsApp (21) 99916-9354.
+
+Projeto autoral de Leticia Costa, tornado público em 29/10/2026.
+
+#delivery #shoppingcenter #produto #inovação #empreendedorismo #primeiroemprego

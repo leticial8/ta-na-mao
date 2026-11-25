@@ -1,0 +1,27 @@
+TÍTULO DO DOCUMENTO: A solução: e se o motoboy nem entrasse?
+
+Na quarta, defini um problema: o motoboy perde tempo demais dentro do shopping. No meu exemplo, são 17 minutos por pedido entre estacionar, atravessar, esperar no balcão e voltar.
+
+Hoje mostro a hipótese que estou construindo.
+
+E se o motoboy nem precisasse entrar?
+
+Todo app de delivery liga três partes: quem pede, o restaurante e o motoboy. A minha ideia é criar a quarta: o carregador.
+
+É alguém que trabalha a pé, só dentro do shopping:
+1. O pedido fica pronto e aparece no app dele
+2. Ele retira no balcão com um código
+3. Leva com um carrinho até uma cabine na porta
+4. Entrega na mão do motoboy, confirmando com o código do app de delivery
+
+O motoboy só encosta, pega e segue.
+
+E o carregador pode ser um jovem em busca do primeiro emprego: sem moto, sem habilitação, em turnos de 4 a 5 horas, ganhando por entrega.
+
+Ainda é uma hipótese. O próximo passo é ouvir quem vive isso todo dia.
+
+Motoboys, lojistas e quem trabalha em shopping: o que pode dar errado nessa ideia? Quero ouvir as críticas também.
+
+Na próxima semana, apresento o projeto completo.
+
+#delivery #shoppingcenter #produto #inovação #empreendedorismo #primeiroemprego

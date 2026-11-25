@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Tá na Mão</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: faixas de cor em largura total (vermelho, creme, amarelo, escuro), conteúdo em coluna de 1120px; a corrente de 4 elos é o motivo visual */
+:root{
+  --red:#D9231D; --red-deep:#A8160F; --yellow:#FFC530; --yellow-soft:#FFF0C2;
+  --bg:#FFF8E6; --surface:#FFFFFF; --ink:#1E1410; --muted:#665448; --line:#F1E3BC;
+  --on-red:#FFFFFF; --band-dark:#1E1410; --on-dark:#FFF8E6; --on-dark-muted:#E6D9C2;
+  --display:'Bricolage Grotesque', 'Arial Black', system-ui, sans-serif;
+  --body:'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1A120E; --surface:#261A15; --ink:#FFF3DC; --muted:#CDB9A3; --line:#3A2A21;
+  --yellow-soft:#3A2C10; --band-dark:#0F0907; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1A120E; --surface:#261A15; --ink:#FFF3DC; --muted:#CDB9A3; --line:#3A2A21;
+  --yellow-soft:#3A2C10; --band-dark:#0F0907; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.55}
+.wrap{max-width:1120px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.05}
+h2{font-size:clamp(32px, 5vw, 52px); font-weight:800; letter-spacing:-1px}
+h3{font-size:22px; font-weight:700}
+p{margin:0}
+.eyebrow{font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase}
+section{padding-block:clamp(56px, 9vw, 104px)}
+.sec-head{display:flex; flex-direction:column; gap:14px; max-width:720px; margin-bottom:40px}
+.sec-head p{color:var(--muted); font-size:19px}
+a:focus-visible, button:focus-visible{outline:3px solid var(--yellow); outline-offset:3px}
+
+/* topo */
+.top{position:sticky; top:env(safe-area-inset-top, 0px); z-index:20; background:var(--red); color:var(--on-red)}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:30; background:var(--red)}
+.top .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-block:12px}
+.brand{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:800; font-size:20px}
+.mark{width:36px; height:36px; border-radius:11px; background:var(--yellow); display:grid; place-items:center; flex-shrink:0}
+.langs{display:flex; gap:4px; background:var(--red-deep); padding:4px; border-radius:22px}
+.langs button{font:700 14px var(--body); color:var(--on-red); background:transparent; border:0; border-radius:18px; min-width:44px; height:36px; cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--yellow); color:#1E1410}
+
+/* hero */
+.hero{background:var(--red); color:var(--on-red); padding-block:40px 72px; overflow:hidden}
+.hero .wrap{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr); gap:48px; align-items:center}
+.hero h1{font-size:clamp(64px, 12vw, 136px); font-weight:800; letter-spacing:-4px; line-height:.9}
+.hero h1 span{color:var(--yellow)}
+.hero .lead{font-size:clamp(19px, 2.2vw, 23px); max-width:560px; margin-top:22px; font-weight:500}
+.author{display:inline-flex; align-items:center; gap:10px; margin-top:26px; padding:10px 16px; border-radius:14px; background:var(--red-deep); font-weight:600; font-size:15px}
+.author b{color:var(--yellow)}
+.ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:28px}
+.btn{display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:0 24px; border-radius:26px; font-weight:700; font-size:16px; text-decoration:none}
+.btn-y{background:var(--yellow); color:#1E1410}
+.btn-y:hover{background:#FFD45E}
+.btn-o{border:2px solid var(--on-red); color:var(--on-red)}
+.btn-o:hover{background:var(--red-deep)}
+
+.phone{justify-self:center; width:min(300px, 100%); aspect-ratio:440/880; max-width:100%; background:#1E1410; border-radius:46px; padding:12px; box-shadow:0 18px 0 var(--red-deep); transform:rotate(3deg)}
+.screen{height:100%; border-radius:36px; background:#FFF8E6; color:#1E1410; padding:40px 14px 14px; display:flex; flex-direction:column; gap:10px; overflow:hidden; font-size:12px}
+.scr-earn{background:#D9231D; color:#fff; border-radius:16px; padding:12px}
+.scr-earn strong{display:block; font:800 26px var(--display)}
+.scr-card{background:#fff; border:1.5px solid #F1E3BC; border-radius:14px; padding:10px; display:flex; flex-direction:column; gap:6px}
+.scr-row{display:flex; justify-content:space-between; align-items:center; gap:6px}
+.scr-pill{background:#FFF0C2; border-radius:8px; padding:2px 6px; font-weight:700; font-size:11px}
+.scr-btn{background:#FFC530; border-radius:12px; padding:5px 10px; font-weight:700}
+.scr-cap{font-size:11px; color:#665448; text-align:center; margin-top:auto}
+
+/* números */
+.facts{background:var(--yellow); color:#1E1410}
+.facts .wrap{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:24px; padding-block:32px}
+.fact strong{display:block; font:800 clamp(30px, 4vw, 44px)/1 var(--display); letter-spacing:-1px; font-variant-numeric:tabular-nums}
+.fact span{font-weight:600; font-size:15px}
+
+/* problema */
+.problems{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; counter-reset:p}
+.prob{background:var(--surface); border:1.5px solid var(--line); border-radius:22px; padding:22px; display:flex; flex-direction:column; gap:10px}
+.prob .ic{width:44px; height:44px; border-radius:22px; background:var(--yellow-soft); display:grid; place-items:center; color:var(--red)}
+.prob p{color:var(--muted); font-size:16px}
+.eyebrow.r{color:var(--red)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .eyebrow.r{color:var(--yellow)}}
+:root[data-theme="dark"] .eyebrow.r{color:var(--yellow)}
+
+/* corrente */
+.chain-band{background:var(--surface); border-block:1.5px solid var(--line)}
+.chain{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:0; position:relative}
+.link{position:relative; padding:24px 20px; display:flex; flex-direction:column; gap:10px; border:2px solid var(--line); border-radius:28px; background:var(--bg); margin-right:-2px}
+.link .tag{font:800 15px var(--display); color:var(--muted)}
+.link h3{font-size:26px}
+.link p{color:var(--muted); font-size:16px}
+.link.hl{background:var(--red); border-color:var(--red); color:var(--on-red); transform:translateY(-10px); z-index:2}
+.link.hl .tag{color:var(--yellow)} .link.hl p{color:var(--on-red)}
+.link.hl::after{content:attr(data-new); position:absolute; top:-14px; right:16px; background:var(--yellow); color:#1E1410; font:800 13px var(--display); padding:5px 10px; border-radius:10px}
+.chain-note{margin-top:28px; color:var(--muted); max-width:720px}
+
+/* passos */
+.steps{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; list-style:none; margin:0; padding:0}
+.step{display:flex; flex-direction:column; gap:10px}
+.step .n{width:52px; height:52px; border-radius:26px; background:var(--red); color:var(--on-red); font:800 22px var(--display); display:grid; place-items:center}
+.step .code{align-self:flex-start; font:800 15px var(--display); letter-spacing:.3em; background:var(--yellow); color:#1E1410; padding:4px 8px 4px 12px; border-radius:8px}
+.step p{color:var(--muted); font-size:16px}
+
+/* demo do app */
+.demo{background:var(--yellow); color:#1E1410}
+.demo .eyebrow{color:#A8160F} .demo .sec-head p{color:#3B2A20}
+.demo-grid{display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:56px; align-items:center}
+.dphone{width:min(330px,100%); margin:0 auto; aspect-ratio:440/956; max-width:100%; background:#1E1410; border-radius:52px; padding:11px; box-shadow:0 20px 0 #C99A1C}
+.screens{position:relative; width:100%; height:100%; border-radius:42px; overflow:hidden; background:#FFF8E6; container-type:inline-size; font-family:var(--display)}
+.island{position:absolute; top:calc(100cqw / 440 * 12); left:50%; transform:translateX(-50%); width:calc(100cqw / 440 * 120); height:calc(100cqw / 440 * 34); background:#1E1410; border-radius:999px; z-index:5}
+.S{--u:calc(100cqw / 440); position:absolute; inset:0; padding:calc(var(--u) * 62) calc(var(--u) * 20) calc(var(--u) * 30); display:flex; flex-direction:column; gap:calc(var(--u) * 14); color:#1E1410; background:#FFF8E6; font-size:calc(var(--u) * 15); line-height:1.3; opacity:0; transform:translateX(8%); transition:opacity .45s ease, transform .45s ease}
+.S.is-on{opacity:1; transform:none; z-index:2}
+.S.red{background:#D9231D; color:#fff; align-items:center; text-align:center}
+.S b{font-weight:800}
+.S .f13{font-size:calc(var(--u) * 13)} .S .f17{font-size:calc(var(--u) * 17)} .S .f20{font-size:calc(var(--u) * 20)} .S .f24{font-size:calc(var(--u) * 24)} .S .f28{font-size:calc(var(--u) * 28)} .S .f40{font-size:calc(var(--u) * 40)}
+.S .mut{color:#665448}
+.S .row{display:flex; justify-content:space-between; align-items:center; gap:calc(var(--u) * 10)}
+.S .col{display:flex; flex-direction:column; gap:calc(var(--u) * 6)}
+.S .crd{background:#fff; border:1.5px solid #F1E3BC; border-radius:calc(var(--u) * 20); padding:calc(var(--u) * 16); display:flex; flex-direction:column; gap:calc(var(--u) * 10)}
+.S .pill{background:#FFF0C2; border-radius:calc(var(--u) * 10); padding:calc(var(--u) * 4) calc(var(--u) * 10); font-weight:700; font-size:calc(var(--u) * 13); white-space:nowrap}
+.S .bt{border:0; font-family:inherit; cursor:pointer; height:calc(var(--u) * 58); border-radius:calc(var(--u) * 29); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:calc(var(--u) * 18); width:100%; background:#D9231D; color:#fff}
+.S .bt.y{background:#FFC530; color:#1E1410}
+.S .bt.sm{height:calc(var(--u) * 44); width:auto; padding:0 calc(var(--u) * 18); font-size:calc(var(--u) * 15)}
+.S .sp{flex:1}
+.S .codes{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:calc(var(--u) * 10)}
+.S .codes span{height:calc(var(--u) * 64); border-radius:calc(var(--u) * 16); background:#fff; display:grid; place-items:center; font-weight:800; font-size:calc(var(--u) * 34)}
+.S .codes.out span{border:2px solid #D9231D}
+.S .codes.out span.e{border-color:#EADAB0; color:transparent}
+.S .ck{display:flex; align-items:center; gap:calc(var(--u) * 10); font-weight:600; font-size:calc(var(--u) * 15)}
+.S .ck i{width:calc(var(--u) * 22); height:calc(var(--u) * 22); border-radius:calc(var(--u) * 6); border:2px solid #D9231D; flex-shrink:0}
+.S .ck i.on{background:#D9231D}
+.S .dot{width:calc(var(--u) * 44); height:calc(var(--u) * 44); border-radius:50%; display:grid; place-items:center; flex-shrink:0}
+.S .dot svg{width:50%; height:50%}
+.S .bar{flex:1; height:calc(var(--u) * 4); border-radius:2px; background:#D9231D}
+.S .stats{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:calc(var(--u) * 10)}
+.S .stats div{background:#fff; border:1.5px solid #F1E3BC; border-radius:calc(var(--u) * 16); padding:calc(var(--u) * 12)}
+.demo-steps{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+.demo-steps button{width:100%; text-align:left; display:grid; grid-template-columns:44px minmax(0,1fr); gap:2px 14px; align-items:center; padding:12px 16px; border-radius:18px; border:2px solid transparent; background:#FFD86A; color:#1E1410; font:inherit; cursor:pointer}
+.demo-steps button:hover{background:#FFE18C}
+.demo-steps button[aria-pressed="true"]{background:#FFFFFF; border-color:#1E1410}
+.dn{grid-row:span 2; width:44px; height:44px; border-radius:22px; background:#1E1410; color:#FFC530; font:800 18px var(--display); display:grid; place-items:center}
+.demo-steps button[aria-pressed="true"] .dn{background:#D9231D; color:#FFFFFF}
+.dt{font:700 19px var(--display)} .dd{font-size:15px; color:#3B2A20; line-height:1.4}
+.play{margin-top:16px; display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 18px; border-radius:22px; border:2px solid #1E1410; background:transparent; color:#1E1410; font:700 15px var(--body); cursor:pointer}
+.demo button:focus-visible{outline:3px solid #1E1410; outline-offset:3px}
+@media (prefers-reduced-motion: reduce){.S{transition:none}}
+
+/* página de números */
+.more{margin-top:40px; display:inline-flex; align-items:center; gap:10px; min-height:56px; padding:0 26px; border-radius:28px; background:var(--yellow); color:#1E1410; font:700 17px var(--body); text-decoration:none}
+.more:hover{background:#FFD45E}
+.nhero{background:var(--band-dark); color:var(--on-dark); padding-block:40px 64px}
+.nhero .back{color:var(--yellow); font-weight:700; text-decoration:none; display:inline-flex; min-height:44px; align-items:center}
+.nhero h1{font-size:clamp(44px, 8vw, 88px); font-weight:800; letter-spacing:-2px; margin-top:16px}
+.nhero p{color:var(--on-dark-muted); font-size:19px; max-width:640px; margin-top:16px}
+.tiles{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px}
+.tile{background:var(--surface); border:1.5px solid var(--line); border-radius:20px; padding:20px; display:flex; flex-direction:column; gap:6px}
+.tile strong{font:800 clamp(30px, 4vw, 42px)/1 var(--display); letter-spacing:-1px; font-variant-numeric:tabular-nums}
+.tile span{color:var(--muted); font-size:15px}
+.tile.hl{background:var(--red); border-color:var(--red); color:var(--on-red)} .tile.hl span{color:var(--on-red)}
+.chart{background:var(--surface); border:1.5px solid var(--line); border-radius:22px; padding:clamp(18px, 3vw, 28px); display:flex; flex-direction:column; gap:14px; min-width:0}
+.chart h3{font-size:21px} .chart .sub{color:var(--muted); font-size:15px}
+.charts2{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; margin-top:16px}
+.vbars{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; align-items:end; height:240px; border-bottom:1.5px solid var(--line); padding-top:28px}
+.vb{position:relative; height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:center}
+.vb i{display:block; width:min(72px, 80%); background:var(--red); border-radius:4px 4px 0 0; position:relative}
+.vb i.proj{background:repeating-linear-gradient(135deg, var(--red) 0 6px, var(--yellow-soft) 6px 10px)}
+.vb i.calc{opacity:.55}
+.vb b{position:absolute; top:-26px; left:50%; transform:translateX(-50%); white-space:nowrap; font:800 15px var(--display); color:var(--ink); font-variant-numeric:tabular-nums}
+.vlabels{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; text-align:center; font-size:14px; color:var(--muted); font-weight:600}
+.hbars{display:flex; flex-direction:column; gap:12px}
+.hb{display:grid; grid-template-columns:minmax(0, 1fr); gap:4px}
+.hb .lab{display:flex; justify-content:space-between; gap:12px; font-size:15px} .hb .lab b{font-variant-numeric:tabular-nums}
+.hb .track{height:14px; border-radius:7px; background:var(--yellow-soft)}
+.hb .track i{display:block; height:100%; border-radius:7px; background:var(--red)}
+.hb:hover .track i, .vb:hover i{filter:brightness(1.12)}
+.split{display:flex; height:44px; border-radius:12px; overflow:hidden; gap:2px; background:var(--surface)}
+.split i{display:flex; align-items:center; padding:0 12px; font:800 15px var(--display); white-space:nowrap}
+.split .a{background:var(--red); color:var(--on-red); width:18%} .split .o{background:var(--yellow-soft); color:var(--ink); flex:1}
+.legend{display:flex; flex-wrap:wrap; gap:8px 18px; font-size:14px; color:var(--muted)}
+.legend span{display:inline-flex; align-items:center; gap:6px} .legend em{display:inline-block; width:14px; height:14px; border-radius:4px; background:var(--red)}
+.legend em.p{background:repeating-linear-gradient(135deg, var(--red) 0 4px, var(--yellow-soft) 4px 7px)} .legend em.c{opacity:.55}
+.compare{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px; align-items:end; height:200px; border-bottom:1.5px solid var(--line); padding-top:28px}
+.sim{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; align-items:start}
+.sim form{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px}
+.sim label{display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600; color:var(--muted)}
+.sim input{font:700 20px var(--display); color:var(--ink); background:var(--bg); border:1.5px solid var(--line); border-radius:12px; height:52px; padding:0 14px; width:100%; font-variant-numeric:tabular-nums}
+.sim input:focus-visible{outline:3px solid var(--yellow); outline-offset:1px}
+.sim input.rng{height:36px; padding:0; border:0; background:transparent; accent-color:var(--red); cursor:pointer; touch-action:pan-y}
+.sim input.rng::-webkit-slider-runnable-track{height:8px; border-radius:4px; background:var(--yellow-soft)}
+.sim input.rng::-webkit-slider-thumb{-webkit-appearance:none; appearance:none; width:28px; height:28px; border-radius:50%; background:var(--red); border:3px solid var(--surface); margin-top:-10px; box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.sim input.rng::-moz-range-track{height:8px; border-radius:4px; background:var(--yellow-soft)}
+.sim input.rng::-moz-range-thumb{width:24px; height:24px; border-radius:50%; background:var(--red); border:3px solid var(--surface)}
+.sim input.rng{-webkit-appearance:none; appearance:none}
+.simout{background:var(--red); color:var(--on-red); border-radius:22px; padding:22px; display:flex; flex-direction:column; gap:14px}
+.simout div{display:flex; justify-content:space-between; align-items:baseline; gap:12px; border-bottom:1px solid rgba(255,255,255,.35); padding-bottom:10px}
+.simout div:last-child{border:0; padding:0}
+.simout b{font:800 26px var(--display); font-variant-numeric:tabular-nums; white-space:nowrap; display:inline-block}
+@media (prefers-reduced-motion: no-preference){ .simout b.bump{animation:bump .35s ease} @keyframes bump{0%{transform:scale(1); color:var(--on-red)} 40%{transform:scale(1.08); color:var(--yellow)} 100%{transform:scale(1); color:var(--on-red)}} }
+.callout{background:var(--yellow); color:#1E1410; border-radius:24px; padding:clamp(20px, 4vw, 36px); display:flex; flex-direction:column; gap:12px}
+.callout h3{font-size:clamp(24px, 3vw, 32px)} .callout p{color:#3B2A20; max-width:70ch}
+.gaps{border:2px dashed var(--line); border-radius:20px; padding:20px; color:var(--muted); font-size:15.5px; display:flex; flex-direction:column; gap:8px}
+.gaps b{color:var(--ink)}
+.srcs{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; font-size:15px}
+.srcs a{color:var(--ink); font-weight:600} .srcs span{color:var(--muted)}
+.nsec{padding-block:clamp(40px, 7vw, 72px)}
+@media (max-width:900px){ .tiles{grid-template-columns:repeat(2, minmax(0,1fr))} .charts2,.sim{grid-template-columns:1fr} }
+@media (max-width:480px){ .sim form{grid-template-columns:1fr} .vb b{font-size:13px} }
+
+
+/* página do projeto */
+.pj-fig{background:#FFF8E6;border:1.5px solid var(--line);border-radius:22px;padding:clamp(10px,2vw,20px);overflow-x:auto}
+.pj-fig svg{display:block;width:100%;max-width:880px;margin:0 auto;height:auto;min-width:520px}
+.pj-two{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:28px;align-items:start}
+.pj-spec{width:100%;border-collapse:collapse;font-size:16px}
+.pj-spec th{text-align:left;padding:12px 14px 12px 0;vertical-align:top;width:38%;font-family:var(--display)}
+.pj-spec td{padding:12px 0;color:var(--muted);line-height:1.45}
+.pj-spec tr{border-bottom:1.5px solid var(--line)}
+.pj-flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.pj-flow span{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;font:700 15px var(--display)}
+.pj-flow span.k{background:var(--yellow);border-color:var(--yellow);color:#1E1410}
+.pj-flow i{font-style:normal;color:var(--red);font-weight:800}
+.pj-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.pj-card{background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.pj-card p{color:var(--muted);font-size:15.5px}
+.pj-card .tagx{align-self:flex-start;background:var(--yellow);color:#1E1410;border-radius:8px;padding:3px 8px;font-weight:700;font-size:13px}
+.pj-ladder{display:flex;flex-direction:column;gap:10px;list-style:none;margin:0;padding:0}
+.pj-ladder li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:14px 18px}
+.pj-ladder b.w{font:800 18px var(--display);color:var(--red)}
+.pj-ladder span{color:var(--muted)} .pj-ladder strong{color:var(--ink);display:block}
+.pj-poll{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:18px;margin-top:16px}
+.pj-poll fieldset{border:0;padding:0;margin:10px 0 0;display:flex;flex-direction:column;gap:8px}
+.pj-poll label{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 12px;border-radius:12px;background:var(--bg);cursor:pointer}
+.pj-poll input{accent-color:var(--red);width:18px;height:18px}
+.pj-note{font-size:14px;color:var(--muted);margin-top:10px}
+.pj-legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 20px;margin-top:16px;font-size:15px}
+.pj-legend div{display:flex;gap:10px;align-items:flex-start}
+.pj-legend b.n{flex-shrink:0;width:28px;height:28px;border-radius:14px;background:#1E1410;color:#FFC530;display:grid;place-items:center;font:800 13px var(--display)}
+@media (max-width:900px){.pj-two,.pj-cards{grid-template-columns:1fr}.pj-legend{grid-template-columns:1fr}}
+@media (max-width:560px){.pj-ladder li{grid-template-columns:1fr;gap:4px}}
+
+
+/* abas e bastidores */
+.top .wrap{flex-wrap:wrap}
+.tabs{display:flex;gap:2px;overflow-x:auto;flex:1 1 auto;justify-content:center;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;color:var(--on-red);text-decoration:none;font-weight:700;font-size:15px;min-height:44px;display:inline-flex;align-items:center;padding:0 12px;border-radius:22px}
+.tabs a:hover{background:var(--red-deep)}
+.tabs a[aria-current="page"]{background:var(--red-deep);box-shadow:inset 0 -3px 0 var(--yellow)}
+@media (max-width:760px){.tabs{order:3;flex-basis:100%;justify-content:space-between}.tabs a{padding:0 8px;font-size:14px}}
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;border-left:3px solid var(--line);margin-left:10px}
+.tl li{position:relative;padding:0 0 32px 30px}
+.tl li::before{content:"";position:absolute;left:-12px;top:4px;width:18px;height:18px;border-radius:50%;background:var(--surface);border:3px solid var(--red)}
+.tl li.post::before{background:var(--yellow);border-color:#1E1410}
+.tl .when{font:800 15px var(--display);color:var(--red);letter-spacing:.02em}
+.tl h3{margin-top:4px}
+.tl p{color:var(--muted);max-width:62ch;margin-top:6px}
+.tl .row2{display:grid;grid-template-columns:200px minmax(0,1fr);gap:22px;align-items:start;margin-top:12px}
+.tl img{width:100%;border-radius:14px;border:1.5px solid var(--line);display:block}
+.chip{display:inline-block;margin-top:10px;border-radius:999px;padding:4px 12px;font-weight:700;font-size:13px;background:var(--yellow-soft);color:var(--ink)}
+.chip.ok{background:#E3F7EA;color:#145C32}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chip.ok{background:#173A26;color:#BFF0CF}}
+:root[data-theme="dark"] .chip.ok{background:#173A26;color:#BFF0CF}
+@media (max-width:560px){.tl .row2{grid-template-columns:1fr}.tl .row2 img{max-width:260px}}
+
+/* quem ganha */
+.wins{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px}
+.win{background:var(--surface); border:1.5px solid var(--line); border-radius:22px; padding:24px; display:flex; flex-direction:column; gap:10px}
+.win p{color:var(--muted); font-size:16px}
+.win.big{background:var(--yellow); border-color:var(--yellow); color:#1E1410}
+.win.big p{color:#3B2A20}
+
+/* momento */
+.moment{background:var(--band-dark); color:var(--on-dark)}
+.moment .sec-head p{color:var(--on-dark-muted)}
+.moment .eyebrow{color:var(--yellow)}
+.reasons{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px 40px; list-style:none; padding:0; margin:0}
+.reasons li{display:flex; gap:14px; align-items:flex-start; padding-block:16px; border-top:1px solid #4A372C; color:var(--on-dark-muted)}
+.reasons li b{color:var(--on-dark); display:block; font-family:var(--display); font-size:20px; margin-bottom:4px}
+.reasons svg{flex-shrink:0; margin-top:4px}
+
+/* contato */
+.contact{background:var(--red); color:var(--on-red)}
+.contact .wrap{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:40px; align-items:center}
+.contact .eyebrow{color:var(--yellow)}
+.contact .sec-head{margin:0} .contact .sec-head p{color:var(--on-red)}
+.card-c{background:var(--yellow); color:#1E1410; border-radius:28px; padding:28px; display:flex; flex-direction:column; gap:14px}
+.card-c .who{font:800 28px var(--display)}
+.phone-row{display:flex; flex-wrap:wrap; align-items:center; gap:12px; background:#FFFFFF; border-radius:18px; padding:14px 16px}
+.phone-num{font:800 clamp(22px, 3.4vw, 30px) var(--display); user-select:all; font-variant-numeric:tabular-nums; flex:1; min-width:0}
+.copy{font:700 15px var(--body); background:#1E1410; color:#FFF8E6; border:0; border-radius:22px; min-height:44px; padding:0 18px; cursor:pointer}
+.small{font-size:14px}
+.btn.wa{background:#1E1410; color:#FFF8E6; min-height:56px; font-size:17px}
+.btn.wa:hover{background:#3A2A21}
+
+/* aviso legal */
+.legal{padding-block:56px}
+.legal-box{border:2px solid var(--ink); border-radius:24px; padding:clamp(20px, 4vw, 40px); display:flex; flex-direction:column; gap:14px; max-width:860px}
+.legal-box h2{font-size:clamp(26px, 3.6vw, 36px)}
+.legal-box p{font-size:15.5px; color:var(--muted); max-width:72ch}
+.legal-box p strong{color:var(--ink)}
+.legal-box .stamp{display:flex; flex-wrap:wrap; gap:8px 20px; font-weight:700; font-size:14px; color:var(--ink); padding-top:12px; border-top:1.5px solid var(--line)}
+footer{padding-block:24px 40px; color:var(--muted); font-size:14px}
+
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr} .phone{width:240px}
+  .problems,.steps,.facts .wrap{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .wins{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .chain{grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px} .link{margin:0}
+  .contact .wrap{grid-template-columns:1fr}
+  .demo-grid{grid-template-columns:1fr; gap:36px} .dphone{width:min(300px,100%)}
+}
+@media (max-width:560px){
+  .problems,.steps,.wins,.reasons,.chain{grid-template-columns:1fr}
+  .hero h1{letter-spacing:-2px}
+  .link.hl{transform:none}
+  .brand .bn{display:none}
+}
+@media (prefers-reduced-motion: no-preference){
+  .phone{animation:tilt 900ms cubic-bezier(.2,.8,.2,1) both}
+  @keyframes tilt{from{transform:rotate(0) translateY(16px)}to{transform:rotate(3deg) translateY(0)}}
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E1410" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg></span>
+      <span class="bn">Tá na Mão</span>
+    </div>
+    <nav class="tabs" aria-label="Seções">
+      <a href="#inicio" data-tab="home" data-i18n="tb1">Apresentação</a>
+      <a href="#projeto" data-tab="projeto" data-i18n="tb2">Projeto</a>
+      <a href="#numeros" data-tab="numeros" data-i18n="tb3">Números</a>
+      <a href="#bastidores" data-tab="bastidores" data-i18n="tb4">Bastidores</a>
+    </nav>
+    <div class="langs" role="group" aria-label="Idioma / Language / Idioma">
+      <button type="button" id="lang-pt" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" id="lang-es" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+  </div>
+</header>
+
+<main id="view-home">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow" style="color:var(--yellow)" data-i18n="eyebrow">Protótipo · conceito original</p>
+      <h1 style="margin-top:14px">Tá na<br><span>Mão</span></h1>
+      <p class="lead" data-i18n="lead">O elo que faltava no delivery de shopping: alguém que leva o pedido da praça de alimentação até a mão do motoboy, na porta.</p>
+      <p class="author" data-i18n="author">Ideia original de <b>Leticia Costa</b> · registrada em 29 de outubro de 2026</p>
+      <div class="ctas">
+        <a class="btn btn-y" href="#contato" data-i18n="cta1">Falar com a criadora</a>
+        <a class="btn btn-o" href="#como-funciona" data-i18n="cta2">Ver como funciona</a>
+        <a class="btn btn-o" href="#projeto" data-i18n="cta3">Ver o projeto completo</a>
+      </div>
+    </div>
+    <div class="phone" role="img" aria-label="Tela do app Tá na Mão com um pedido pronto na praça de alimentação">
+      <div class="screen" aria-hidden="true">
+        <div class="scr-earn">Ganhos de hoje<strong>R$ 27,00</strong>18 entregas</div>
+        <b style="font-family:var(--display); font-size:15px">Prontos agora na praça</b>
+        <div class="scr-card">
+          <div class="scr-row"><b>Hamburgueria</b><span class="scr-pill">Pronto agora</span></div>
+          <span>Box 12 · <b>Cabine A</b> · moto em 3 min</span>
+          <div class="scr-row"><b style="font-size:15px">R$ 1,50</b><span class="scr-btn">Pegar pedido</span></div>
+        </div>
+        <div class="scr-card">
+          <div class="scr-row"><b>Pizzaria</b><span class="scr-pill">Há 2 min</span></div>
+          <span>Box 3 · <b>Cabine A</b> · moto em 1 min</span>
+          <div class="scr-row"><b style="font-size:15px">R$ 1,50</b><span class="scr-btn">Pegar pedido</span></div>
+        </div>
+        <p class="scr-cap" data-i18n="mock">Tela do protótipo</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="facts">
+  <div class="wrap">
+    <div class="fact"><strong>R$ 1–2</strong><span data-i18n="f1">por entrega para o carregador</span></div>
+    <div class="fact"><strong>4–5 h</strong><span data-i18n="f2">por turno, sem veículo</span></div>
+    <div class="fact"><strong>2</strong><span data-i18n="f3">códigos de confirmação por pedido</span></div>
+    <div class="fact"><strong>0</strong><span data-i18n="f4">vagas de estacionamento usadas pelo motoboy</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow r" data-i18n="pE">O problema</p>
+      <h2 data-i18n="pH">Dentro do shopping, o motoboy perde o tempo que deveria estar na rua</h2>
+      <p data-i18n="pP">Cada pedido feito numa praça de alimentação obriga o entregador a deixar a moto, entrar no prédio e fazer um percurso que não tem nada a ver com entregar.</p>
+    </div>
+    <div class="problems">
+      <div class="prob">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"></rect><path d="M10 17V7h3a3 3 0 0 1 0 6h-3"></path></svg></span>
+        <h3 data-i18n="p1t">Estacionar</h3><p data-i18n="p1">Achar vaga para a moto e pagar ou negociar a entrada no estacionamento.</p>
+      </div>
+      <div class="prob">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4l8-14h4"></path><path d="M4 20V16"></path></svg></span>
+        <h3 data-i18n="p2t">Atravessar o shopping</h3><p data-i18n="p2">Subir de capacete e mochila por corredores, escadas rolantes e elevadores até a praça.</p>
+      </div>
+      <div class="prob">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2"></path></svg></span>
+        <h3 data-i18n="p3t">Esperar no balcão</h3><p data-i18n="p3">Disputar espaço com clientes e outros entregadores enquanto o pedido não sai.</p>
+      </div>
+      <div class="prob">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14l-5-5 5-5"></path><path d="M4 9h10a6 6 0 0 1 0 12h-3"></path></svg></span>
+        <h3 data-i18n="p4t">Voltar</h3><p data-i18n="p4">Fazer todo o caminho de volta, com a comida esfriando dentro da bag.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chain-band">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow r" data-i18n="cE">A solução</p>
+      <h2 data-i18n="cH">A quarta parte do delivery</h2>
+      <p data-i18n="cP">Os apps de delivery ligam três partes: quem pede, o restaurante e o motoboy. O Tá na Mão cria a quarta, o carregador, que trabalha entre o restaurante e o motoboy, dentro do shopping.</p>
+    </div>
+    <div class="chain">
+      <div class="link"><span class="tag">1</span><h3 data-i18n="l1t">Cliente</h3><p data-i18n="l1">Faz o pedido no app de delivery, como já faz hoje.</p></div>
+      <div class="link"><span class="tag">2</span><h3 data-i18n="l2t">Restaurante</h3><p data-i18n="l2">Prepara o pedido no box da praça de alimentação.</p></div>
+      <div class="link hl" id="link-new" data-new="Novo"><span class="tag">3</span><h3 data-i18n="l3t">Carregador Tá na Mão</h3><p data-i18n="l3">Retira no balcão e leva a pé, com um carrinho, até a cabine na porta.</p></div>
+      <div class="link"><span class="tag">4</span><h3 data-i18n="l4t">Motoboy</h3><p data-i18n="l4">Passa na cabine, pega o pedido e segue para o cliente.</p></div>
+    </div>
+    <p class="chain-note" data-i18n="cN">O cliente não muda nada no seu jeito de pedir. A mudança acontece dentro do shopping, onde hoje ninguém organiza esse trecho.</p>
+  </div>
+</section>
+
+<section id="como-funciona">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow r" data-i18n="sE">Como funciona</p>
+      <h2 data-i18n="sH">Do balcão à cabine, com dois códigos</h2>
+    </div>
+    <ol class="steps">
+      <li class="step"><span class="n">1</span><h3 data-i18n="s1t">O pedido fica pronto</h3><p data-i18n="s1">O app mostra aos carregadores do turno quais pedidos acabaram de sair da cozinha e para qual cabine vão.</p></li>
+      <li class="step"><span class="n">2</span><span class="code">7319</span><h3 data-i18n="s2t">Retirada com código</h3><p data-i18n="s2">O carregador mostra um código no balcão. O restaurante confirma e o pedido passa para o nome dele.</p></li>
+      <li class="step"><span class="n">3</span><h3 data-i18n="s3t">Até a cabine</h3><p data-i18n="s3">Com um carrinho personalizado, ele leva o pedido até a cabine na entrada, na lateral ou na doca, vendo no app quando a moto chega.</p></li>
+      <li class="step"><span class="n">4</span><span class="code">5048</span><h3 data-i18n="s4t">Entrega com código</h3><p data-i18n="s4">O motoboy informa o código do app dele. Confirmado, o pedido passa de mão e o carregador recebe pela entrega.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="demo" id="app">
+  <div class="wrap demo-grid">
+    <div class="dphone" role="region" aria-roledescription="carrossel" aria-label="Telas do app Tá na Mão">
+      <div class="screens">
+        <span class="island" aria-hidden="true"></span>
+
+        <div class="S red is-on" data-scr="0">
+          <div class="sp"></div>
+          <div class="dot" style="width:calc(var(--u) * 132); height:calc(var(--u) * 132); border-radius:calc(var(--u) * 38); background:#FFC530"><svg viewBox="0 0 64 64" fill="none" stroke="#1E1410" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:66%; height:66%"><path d="M18 14h28l-2 24H20L18 14z" fill="#D9231D"></path><path d="M26 14v-3a6 6 0 0 1 12 0v3"></path><path d="M8 46c4-3 9-4 14-2l8 3h10a3 3 0 0 1 0 6H28"></path><path d="M40 50l10-5a3 3 0 0 1 3 5L40 58H24l-8-3"></path></svg></div>
+          <b style="font-size:calc(var(--u) * 52); letter-spacing:-0.04em; line-height:1">Tá na Mão</b>
+          <span class="f17" style="font-weight:600; max-width:80%">Da praça de alimentação direto para a mão do motoboy.</span>
+          <div class="sp"></div>
+          <button type="button" class="bt y" data-go="1">Entrar</button>
+          <span class="f15" style="font-weight:700">Quero ser carregador</span>
+        </div>
+
+        <div class="S" data-scr="1">
+          <div class="row"><b class="f24">Tá na Mão</b><span class="pill" style="background:#1E1410; color:#FFF8E6">● Turno ativo</span></div>
+          <div class="crd" style="background:#D9231D; border-color:#D9231D; color:#fff; gap:calc(var(--u) * 4)"><span style="font-weight:600">Ganhos de hoje</span><b class="f40" style="line-height:1">R$ 27,00</b><span>18 entregas · R$ 1,50 cada</span></div>
+          <b class="f20">Prontos agora na praça</b>
+          <div class="crd"><div class="row"><div class="col" style="gap:2px"><b class="f17">Hamburgueria</b><span class="f13 mut">Box 12 · Pedido #4821</span></div><span class="pill">Pronto agora</span></div><span><b>Cabine A</b> · moto chega em 3 min</span><div class="row"><b class="f20">R$ 1,50</b><button type="button" class="bt y sm" data-go="2">Pegar pedido</button></div></div>
+          <div class="crd"><div class="row"><div class="col" style="gap:2px"><b class="f17">Pizzaria</b><span class="f13 mut">Box 3 · Pedido #7745</span></div><span class="pill">Há 2 min</span></div><span><b>Cabine A</b> · moto chega em 1 min</span><div class="row"><b class="f20">R$ 1,50</b><button type="button" class="bt y sm" data-go="2">Pegar pedido</button></div></div>
+        </div>
+
+        <div class="S" data-scr="2">
+          <b class="f24">Retirar no restaurante</b>
+          <div class="crd"><div class="row"><div class="col" style="gap:2px"><b class="f20">Hamburgueria</b><span class="f13 mut">Box 12 · Praça, piso 3</span></div><span class="pill" style="background:#E3F7EA; color:#145C32">Pronto 19:42</span></div><span>Pedido <b>#4821</b> · 2 sacolas</span></div>
+          <div class="crd" style="background:#FFC530; border-color:#FFC530; align-items:center"><b class="f17">Mostre este código no balcão</b><div class="codes" style="width:100%"><span>7</span><span>3</span><span>1</span><span>9</span></div><span class="f13" style="text-align:center">O restaurante digita o código e o pedido sai no seu nome.</span></div>
+          <span class="ck"><i class="on"></i>Lacre da sacola conferido</span>
+          <span class="ck"><i class="on"></i>Bebidas separadas no carrinho</span>
+          <div class="sp"></div>
+          <button type="button" class="bt" data-go="3">Confirmar retirada</button>
+        </div>
+
+        <div class="S" data-scr="3">
+          <b class="f24">Levar até a cabine</b>
+          <div class="crd"><div class="row" style="gap:calc(var(--u) * 6)"><span class="dot" style="background:#D9231D"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg></span><span class="bar"></span><span class="dot" style="background:#FFC530"><svg viewBox="0 0 24 24" fill="none" stroke="#1E1410" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2"></rect><path d="M10 9l2-2 2 2"></path><path d="M10 15l2 2 2-2"></path></svg></span><span class="bar"></span><span class="dot" style="background:#fff; border:2.5px solid #D9231D; box-sizing:border-box"><svg viewBox="0 0 24 24" fill="none" stroke="#D9231D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span></div><div class="row f13 mut"><span>Praça</span><span>Elevador</span><span><b style="color:#1E1410">Cabine A</b></span></div></div>
+          <div class="crd" style="background:#1E1410; border-color:#1E1410; color:#FFF8E6; flex-direction:row; align-items:center"><span class="dot" style="background:#FFC530; color:#1E1410; font-weight:800">MB</span><div class="col" style="flex:1; gap:2px"><b>Motoboy</b><span class="f13" style="color:#E6D9C2">Esperando na Cabine A</span></div><span class="pill" style="background:#3FD07A; color:#0E2E1A">Chegou</span></div>
+          <b class="f17">Código do motoboy</b>
+          <div class="codes out"><span>5</span><span>0</span><span>4</span><span>8</span></div>
+          <span class="f13 mut">O código aparece no app de delivery do motoboy.</span>
+          <div class="sp"></div>
+          <button type="button" class="bt" data-go="4">Finalizar entrega</button>
+        </div>
+
+        <div class="S" data-scr="4">
+          <div class="crd" style="background:#FFC530; border-color:#FFC530; align-items:center; text-align:center; padding:calc(var(--u) * 26) calc(var(--u) * 16)"><span class="dot" style="width:calc(var(--u) * 72); height:calc(var(--u) * 72); background:#D9231D"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span><b class="f28">Entrega concluída!</b><span>Pedido #4821 entregue na Cabine A</span><b class="f24" style="background:#1E1410; color:#FFC530; padding:calc(var(--u) * 6) calc(var(--u) * 18); border-radius:calc(var(--u) * 20)">+ R$ 1,50</b></div>
+          <div class="stats"><div class="col" style="gap:2px"><span class="f13 mut">Entregas</span><b class="f24">19</b></div><div class="col" style="gap:2px"><span class="f13 mut">No turno</span><b class="f24">2h19</b></div><div class="col" style="gap:2px; background:#D9231D; border-color:#D9231D; color:#fff"><span class="f13">Hoje</span><b class="f24">R$ 28,50</b></div></div>
+          <div class="sp"></div>
+          <button type="button" class="bt" data-go="1">Pegar o próximo pedido</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-head" style="margin-bottom:24px">
+        <p class="eyebrow" data-i18n="dE">O app por dentro</p>
+        <h2 data-i18n="dH">Veja o app em ação</h2>
+        <p data-i18n="dP">As telas que o carregador usa em cada etapa. Toque numa etapa ou nos botões do celular para trocar de tela.</p>
+      </div>
+      <ol class="demo-steps">
+        <li><button type="button" id="demo-0" data-show="0" aria-pressed="true"><span class="dn">1</span><span class="dt" data-i18n="d0t">Abertura</span><span class="dd" data-i18n="d0">O carregador abre o app e entra no turno.</span></button></li>
+        <li><button type="button" id="demo-1" data-show="1" aria-pressed="false"><span class="dn">2</span><span class="dt" data-i18n="d1t">Pedidos prontos</span><span class="dd" data-i18n="d1">Vê os pedidos que acabaram de ficar prontos, para qual cabine vão e quanto ganha em cada um.</span></button></li>
+        <li><button type="button" id="demo-2" data-show="2" aria-pressed="false"><span class="dn">3</span><span class="dt" data-i18n="d2t">Retirada no balcão</span><span class="dd" data-i18n="d2">Mostra o código ao restaurante e confere as sacolas.</span></button></li>
+        <li><button type="button" id="demo-3" data-show="3" aria-pressed="false"><span class="dn">4</span><span class="dt" data-i18n="d3t">Entrega na cabine</span><span class="dd" data-i18n="d3">Leva o pedido até a cabine e confirma com o código do motoboy.</span></button></li>
+        <li><button type="button" id="demo-4" data-show="4" aria-pressed="false"><span class="dn">5</span><span class="dt" data-i18n="d4t">Entrega concluída</span><span class="dd" data-i18n="d4">Recebe pela entrega e já pode pegar o próximo pedido.</span></button></li>
+      </ol>
+      <button type="button" class="play" id="demo-play" aria-pressed="true"><span id="demo-play-txt" data-i18n="dPa">Pausar</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="chain-band">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow r" data-i18n="wE">Por que faz sentido</p>
+      <h2 data-i18n="wH">Todo mundo na corrente sai ganhando</h2>
+    </div>
+    <div class="wins">
+      <div class="win big"><h3 data-i18n="w1t">Motoboys</h3><p data-i18n="w1">Não precisam estacionar nem entrar no shopping. Passam na porta, pegam o pedido e seguem, e podem fazer mais corridas no mesmo tempo.</p></div>
+      <div class="win"><h3 data-i18n="w2t">Restaurantes</h3><p data-i18n="w2">Balcão com menos entregadores esperando, entrega mais organizada e menos pedidos trocados, graças à confirmação por código.</p></div>
+      <div class="win"><h3 data-i18n="w3t">Shoppings</h3><p data-i18n="w3">Menos motos circulando no estacionamento e menos entregadores nos corredores e na praça. Mais controle sobre quem entra e sai.</p></div>
+      <div class="win"><h3 data-i18n="w4t">Jovens carregadores</h3><p data-i18n="w4">Trabalho sem precisar de moto, carro ou habilitação, em turnos de 4 a 5 horas, ganhando de R$ 1 a R$ 2 por entrega. Uma porta de entrada para o primeiro emprego.</p></div>
+      <div class="win"><h3 data-i18n="w5t">Clientes</h3><p data-i18n="w5">O pedido sai do restaurante e chega à moto mais rápido, e a comida chega mais quente em casa.</p></div>
+      <div class="win"><h3 data-i18n="w6t">Apps de delivery</h3><p data-i18n="w6">Retirada mais rápida e previsível nos pedidos feitos em shopping, com rastreio do pedido em todo o trajeto.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="moment">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-i18n="mE">O momento certo</p>
+      <h2 data-i18n="mH">Por que agora</h2>
+      <p data-i18n="mP">As circunstâncias que tornam o Tá na Mão viável hoje.</p>
+    </div>
+    <ul class="reasons">
+      <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFC530" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span><b data-i18n="r1t">O delivery virou hábito</b><span data-i18n="r1">As praças de alimentação atendem cada vez mais pedidos por aplicativo, além dos clientes que comem no local.</span></span></li>
+      <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFC530" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span><b data-i18n="r2t">O gargalo já existe</b><span data-i18n="r2">Filas de motos na porta e entregadores esperando nos balcões são cena comum nos shoppings das grandes cidades.</span></span></li>
+      <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFC530" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span><b data-i18n="r3t">Estrutura pequena</b><span data-i18n="r3">Basta uma cabine ou ponto de encontro, carrinhos e o app. Não exige veículos nem grande investimento.</span></span></li>
+      <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFC530" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span><b data-i18n="r4t">Começa pequeno, cresce rápido</b><span data-i18n="r4">O modelo pode começar como piloto em um único shopping e depois se espalhar por outros shoppings da cidade.</span></span></li>
+      <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFC530" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span><b data-i18n="r5t">Trabalho para quem está começando</b><span data-i18n="r5">Muitos jovens procuram renda em meio período, perto de casa e sem precisar de veículo próprio.</span></span></li>
+      <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFC530" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span><b data-i18n="r6t">Encaixa no que já funciona</b><span data-i18n="r6">O Tá na Mão não substitui nenhum app. Ele se soma ao fluxo que clientes, restaurantes e motoboys já usam.</span></span></li>
+    </ul>
+    <div style="display:flex;flex-wrap:wrap;gap:12px"><a class="more" href="#numeros" data-i18n="moreL">Ver os números do mercado →</a><a class="more" href="#projeto" data-i18n="moreP">Ver o projeto completo →</a></div>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" data-i18n="kE">Contato</p>
+      <h2 data-i18n="kH">Vamos tirar a ideia do papel</h2>
+      <p data-i18n="kP">Quer investir, testar em um shopping ou integrar com seu app de delivery? Fale direto com a criadora da ideia.</p>
+    </div>
+    <div class="card-c">
+      <span class="eyebrow" data-i18n="kR">Criadora do Tá na Mão</span>
+      <span class="who">Leticia Costa</span>
+      <span class="small" data-i18n="kL">Telefone e WhatsApp</span>
+      <div class="phone-row">
+        <span class="phone-num" id="phone">+55 21 99916-9354</span>
+        <button type="button" class="copy" id="copy-btn" data-i18n="kC">Copiar número</button>
+      </div>
+      <a class="btn wa" id="wa-link" href="https://wa.me/5521999169354?text=Ol%C3%A1%2C%20Leticia!%20Vi%20o%20site%20do%20T%C3%A1%20na%20M%C3%A3o%20(app%20de%20carregadores%20que%20levam%20pedidos%20da%20pra%C3%A7a%20de%20alimenta%C3%A7%C3%A3o%20at%C3%A9%20o%20motoboy%20na%20porta%20do%20shopping)%20e%20quero%20conversar%20sobre%20a%20ideia." target="_blank" rel="noopener" data-i18n="kW">Chamar no WhatsApp</a>
+      <span class="small" data-i18n="kS">A conversa já abre com uma mensagem sobre o Tá na Mão. Se o botão não abrir, copie o número acima.</span>
+    </div>
+  </div>
+</section>
+
+<section class="legal" id="aviso">
+  <div class="wrap">
+    <div class="legal-box">
+      <p class="eyebrow r" data-i18n="gE">Aviso legal</p>
+      <h2 data-i18n="gH">Autoria e direitos reservados</h2>
+      <p data-i18n="g1"><strong>Este site apresenta um protótipo conceitual.</strong> O Tá na Mão ainda não está em operação e não tem vínculo com nenhum aplicativo de delivery, restaurante ou shopping citado de forma genérica nesta página.</p>
+      <p data-i18n="g2">A ideia, o nome “Tá na Mão”, o modelo de funcionamento, as telas e os textos aqui apresentados são de autoria de <strong>Leticia Costa</strong> e foram tornados públicos nesta página em <strong>29 de outubro de 2026</strong>.</p>
+      <p data-i18n="g3"><strong>Não autorizo</strong> a cópia, reprodução, adaptação, apropriação ou exploração comercial deste conceito, no todo ou em parte, sem minha autorização prévia e por escrito. Quem tiver interesse no projeto deve entrar em contato pelo telefone acima.</p>
+      <p data-i18n="g4">Este conteúdo está protegido pela Lei de Direitos Autorais (Lei nº 9.610/1998) e pela Lei da Propriedade Industrial (Lei nº 9.279/1996), no que for aplicável. Em caso de divergência entre as traduções, vale a versão em português.</p>
+      <div class="stamp"><span>© 2026 Leticia Costa</span><span data-i18n="gR">Todos os direitos reservados</span><span data-i18n="gD">Publicado em 29/10/2026</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<main id="view-numeros" hidden>
+<section class="nhero">
+  <div class="wrap">
+    <a class="back" href="#inicio" data-i18n="nBack">← Voltar para a apresentação</a>
+    <p class="eyebrow" style="color:var(--yellow); margin-top:20px" data-i18n="nE">Números do mercado</p>
+    <h1 data-i18n="nH">O tamanho da oportunidade</h1>
+    <p data-i18n="nP">Dados públicos sobre shoppings, praças de alimentação e delivery no Brasil que mostram por que o Tá na Mão faz sentido. As fontes estão no fim da página.</p>
+  </div>
+</section>
+
+<section class="nsec">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow r" data-i18n="n1E">Shoppings no Brasil em 2025</p><h2 data-i18n="n1H">Um mercado de R$ 200 bilhões por ano</h2></div>
+    <div class="tiles">
+      <div class="tile hl"><strong data-i18n="t1v">R$ 200,9 bi</strong><span data-i18n="t1">vendidos nos shoppings em 2025, recorde histórico</span></div>
+      <div class="tile hl"><strong data-i18n="t2v">≈ R$ 16,7 bi</strong><span data-i18n="t2">por mês, em média (faturamento anual dividido por 12)</span></div>
+      <div class="tile"><strong data-i18n="t3v">471 mi</strong><span data-i18n="t3">de visitas por mês</span></div>
+      <div class="tile"><strong>658</strong><span data-i18n="t4">shoppings em 253 cidades</span></div>
+      <div class="tile"><strong data-i18n="t5v">124,7 mil</strong><span data-i18n="t5">lojas em funcionamento</span></div>
+      <div class="tile"><strong>80 min</strong><span data-i18n="t6">de permanência média por visita, outro recorde</span></div>
+    </div>
+
+    <div class="charts2">
+      <div class="chart">
+        <h3 data-i18n="c1H">Faturamento anual dos shoppings</h3>
+        <p class="sub" data-i18n="c1S">Em bilhões de reais. O mercado é grande e estável, crescendo um pouco a cada ano.</p>
+        <div class="vbars" role="img" aria-label="2024: cerca de R$ 198,5 bi; 2025: R$ 200,9 bi; 2026: R$ 203,7 bi projetados">
+          <div class="vb" title="2024 · ≈ R$ 198,5 bi (calculado)"><i class="calc" style="height:97.4%"><b>≈ 198,5</b></i></div>
+          <div class="vb" title="2025 · R$ 200,9 bi"><i style="height:98.6%"><b>200,9</b></i></div>
+          <div class="vb" title="2026 · R$ 203,7 bi (projeção)"><i class="proj" style="height:100%"><b>203,7</b></i></div>
+        </div>
+        <div class="vlabels"><span>2024</span><span>2025</span><span>2026</span></div>
+        <div class="legend"><span><em class="c"></em><span data-i18n="c1L1">calculado a partir da alta de 1,2%</span></span><span><em></em><span data-i18n="c1L2">dado oficial</span></span><span><em class="p"></em><span data-i18n="c1L3">projeção da Abrasce</span></span></div>
+      </div>
+
+      <div class="chart">
+        <h3 data-i18n="c2H">A comida dentro do shopping</h3>
+        <p class="sub" data-i18n="c2S">Percentual dos frequentadores de shopping (pesquisa Abrasce, 2023).</p>
+        <div class="hbars">
+          <div class="hb" title="97%"><div class="lab"><span data-i18n="c2a">Comem na praça de alimentação</span><b>97%</b></div><div class="track"><i style="width:97%"></i></div></div>
+          <div class="hb" title="89%"><div class="lab"><span data-i18n="c2b">Já compraram em sorveterias</span><b>89%</b></div><div class="track"><i style="width:89%"></i></div></div>
+          <div class="hb" title="82%"><div class="lab"><span data-i18n="c2c">Escolhem o shopping pela variedade de comida</span><b>82%</b></div><div class="track"><i style="width:82%"></i></div></div>
+          <div class="hb" title="81%"><div class="lab"><span data-i18n="c2d">Comem em restaurantes com mesa</span><b>81%</b></div><div class="track"><i style="width:81%"></i></div></div>
+          <div class="hb" title="75%"><div class="lab"><span data-i18n="c2e">Frequentam cafeterias</span><b>75%</b></div><div class="track"><i style="width:75%"></i></div></div>
+        </div>
+      </div>
+
+      <div class="chart">
+        <h3 data-i18n="c3H">Comida virou motivo para ir ao shopping</h3>
+        <p class="sub" data-i18n="c3S">Percentual que cita a alimentação como motivo da visita.</p>
+        <div class="compare" role="img" aria-label="2016: 11%; 2023: 21%">
+          <div class="vb" title="2016 · 11%"><i style="height:52%"><b>11%</b></i></div>
+          <div class="vb" title="2023 · 21%"><i style="height:100%"><b>21%</b></i></div>
+        </div>
+        <div class="vlabels" style="grid-template-columns:repeat(2, minmax(0,1fr))"><span>2016</span><span>2023</span></div>
+        <p class="sub" data-i18n="c3N">Quase dobrou em sete anos. Hoje a comida é o terceiro motivo mais citado para ir ao shopping.</p>
+      </div>
+
+      <div class="chart">
+        <h3 data-i18n="c4H">Quanto do shopping é alimentação</h3>
+        <p class="sub" data-i18n="c4S">Das cerca de 25 mil marcas presentes nos shoppings, 4,4 mil são de alimentação.</p>
+        <div class="split" role="img" aria-label="Alimentação: 18% das marcas; outros segmentos: 82%"><i class="a">18%</i><i class="o" data-i18n="c4o">82% outros segmentos</i></div>
+        <div class="legend"><span><em></em><span data-i18n="c4l">Alimentação</span></span></div>
+        <div class="hbars" style="margin-top:8px">
+          <div class="hb"><div class="lab"><span data-i18n="c4a">Lojas de alimentação em shopping que são franquias</span><b>48%</b></div><div class="track"><i style="width:48%"></i></div></div>
+          <div class="hb"><div class="lab"><span data-i18n="c4b">Área das lojas ocupada por alimentação em shoppings da Ancar Ivanhoe</span><b>25%</b></div><div class="track"><i style="width:25%"></i></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nsec chain-band">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow r" data-i18n="n2E">Delivery</p><h2 data-i18n="n2H">O pedido por aplicativo já chegou ao shopping</h2></div>
+    <div class="tiles">
+      <div class="tile hl"><strong data-i18n="d1v">≈ 100 mi</strong><span data-i18n="dd1">de pedidos por mês só no iFood (julho de 2024)</span></div>
+      <div class="tile"><strong>43%</strong><span data-i18n="dd2">dos frequentadores já compraram de um shopping por app, WhatsApp ou assistente virtual</span></div>
+      <div class="tile"><strong>34%</strong><span data-i18n="dd3">dessas pessoas receberam a compra por delivery</span></div>
+    </div>
+    <div class="callout" style="margin-top:20px">
+      <h3 data-i18n="hubH">O mercado já reconhece o problema</h3>
+      <p data-i18n="hubP1">Desde 2019, o iFood instala pontos de retirada (iFood Hub) em shoppings como o Shopping Leblon, o Plaza Sul e o SuperShopping Osasco. Neles, um mensageiro leva o pedido da cozinha até o hub, e o motoboy retira ali. Segundo o iFood, a maior parte dos shoppings já tem um hub para a praça de alimentação.</p>
+      <p data-i18n="hubP2">Isso mostra que o gargalo dentro do shopping é real. O Tá na Mão propõe organizar esse trecho para qualquer app de delivery ao mesmo tempo, com carregadores que ganham por entrega e códigos que confirmam cada passagem de mão.</p>
+    </div>
+  </div>
+</section>
+
+<section class="nsec">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow r" data-i18n="sE2">Simulação</p><h2 data-i18n="sH2">Quanto um carregador pode ganhar</h2><p data-i18n="sP2">Arraste as barrinhas ou digite os números para ver o resultado. Os valores iniciais são apenas um exemplo, não dados reais de um shopping.</p></div>
+    <div class="sim">
+      <form id="sim-form" class="chart" style="display:grid" novalidate>
+        <label for="sim-pedidos"><span data-i18n="sL1">Pedidos de delivery por dia no shopping</span><input id="sim-pedidos" type="number" min="0" step="10" value="300" inputmode="numeric"><input id="sim-pedidos-r" class="rng" type="range" min="0" max="2000" step="10" value="300" aria-label="Pedidos por dia"></label>
+        <label for="sim-valor"><span data-i18n="sL2">Valor por entrega (R$)</span><input id="sim-valor" type="number" min="0" step="0.10" value="1.50" inputmode="decimal"><input id="sim-valor-r" class="rng" type="range" min="0.5" max="5" step="0.10" value="1.50" aria-label="Valor por entrega"></label>
+        <label for="sim-carregadores"><span data-i18n="sL3">Carregadores no dia</span><input id="sim-carregadores" type="number" min="1" step="1" value="6" inputmode="numeric"><input id="sim-carregadores-r" class="rng" type="range" min="1" max="40" step="1" value="6" aria-label="Carregadores no dia"></label>
+        <label for="sim-dias"><span data-i18n="sL4">Dias trabalhados no mês</span><input id="sim-dias" type="number" min="1" max="31" step="1" value="22" inputmode="numeric"><input id="sim-dias-r" class="rng" type="range" min="1" max="31" step="1" value="22" aria-label="Dias trabalhados"></label>
+      </form>
+      <div class="simout" aria-live="polite">
+        <div><span data-i18n="sO1">Entregas por carregador no dia</span><b id="o1">50</b></div>
+        <div><span data-i18n="sO2">Ganho por carregador no dia</span><b id="o2">R$ 75,00</b></div>
+        <div><span data-i18n="sO3">Ganho por carregador no mês</span><b id="o3">R$ 1.650,00</b></div>
+        <div><span data-i18n="sO4">Total pago aos carregadores no mês</span><b id="o4">R$ 9.900,00</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nsec" style="padding-top:0">
+  <div class="wrap" style="display:flex; flex-direction:column; gap:24px">
+    <div class="gaps">
+      <b data-i18n="gapH">O que os dados públicos ainda não mostram</b>
+      <span data-i18n="gap1">Não encontramos um número oficial sobre quantos % de todos os restaurantes do país ficam dentro de shoppings, nem sobre quanto do faturamento dos shoppings vem da alimentação ou do delivery. Esses dados podem ser levantados direto com os shoppings e os apps num projeto piloto.</span>
+    </div>
+    <div>
+      <h3 style="margin-bottom:12px" data-i18n="srcH">Fontes</h3>
+      <ul class="srcs">
+        <li><a href="https://mercadoeconsumo.com.br/04/02/2026/shopping-centers/faturamento-dos-shoppings-cresce-12-em-2025-para-r-2009-bi-diz-abrasce/" target="_blank" rel="noopener">Mercado &amp; Consumo</a> <span data-i18n="src1">· Abrasce, balanço de 2025 (fev. 2026)</span></li>
+        <li><a href="https://mercadoeconsumo.com.br/03/08/2023/artigos/novo-raio-x-dos-shoppings-brasileiros-conheca-os-7-pontos-mais-importantes/" target="_blank" rel="noopener">Mercado &amp; Consumo</a> <span data-i18n="src2">· Raio-X dos shoppings brasileiros, Abrasce (2023)</span></li>
+        <li><a href="https://revistashoppingcenters.com.br/universidade/mix-dos-shoppings-impacto/" target="_blank" rel="noopener">Revista Shopping Centers</a> <span data-i18n="src3">· Mix dos Shoppings, Abrasce (2024)</span></li>
+        <li><a href="https://cndl.org.br/varejosa/o-mix-de-lojas-do-shopping-mudou-e-vai-continuar-mudando-sem-parar/" target="_blank" rel="noopener">Varejo S.A. (CNDL)</a> <span data-i18n="src4">· mix de lojas e alimentação (2023)</span></li>
+        <li><a href="https://www.infomoney.com.br/business/ifood-se-aproxima-de-100-milhoes-de-pedidos-por-mes-e-testa-delivery-de-shoppings/" target="_blank" rel="noopener">InfoMoney</a> <span data-i18n="src5">· pedidos do iFood e hubs em shoppings (jul. 2024)</span></li>
+        <li><a href="https://mercadoeconsumo.com.br/07/01/2026/foodservice/ifood-hub-e-inaugurado-no-supershopping-osasco-para-otimizar-operacoes-de-delivery/" target="_blank" rel="noopener">Mercado &amp; Consumo</a> <span data-i18n="src6">· iFood Hub no SuperShopping Osasco (jan. 2026)</span></li>
+      </ul>
+    </div>
+    <a class="more" style="margin-top:0; align-self:flex-start" href="#inicio" data-i18n="nBack2">← Voltar para a apresentação</a>
+  </div>
+</section>
+</main>
+
+
+<main id="view-projeto" hidden>
+<section class="nhero">
+  <div class="wrap">
+    <a class="back" href="#inicio" data-i18n="pjBack">← Voltar para a apresentação</a>
+    <p class="eyebrow" style="color:var(--yellow); margin-top:20px" data-i18n="pjE">O projeto completo</p>
+    <h1 data-i18n="pjH">Como o Tá na Mão funciona por dentro</h1>
+    <p data-i18n="pjP">O sistema, o carrinho, a equipe, os benefícios e onde fica o ponto de entrega. Todas as especificações são uma proposta inicial, a validar com fornecedores e com cada shopping.</p>
+  </div>
+</section>
+
+<section class="nsec" id="sistema">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow r" data-i18n="pj1E">O sistema</p><h2 data-i18n="pj1H">Cinco status, dois códigos, três telas</h2><p data-i18n="pj1P">Cada pedido passa de mão em mão com confirmação. O Tá na Mão não substitui nenhum app de delivery: organiza o trecho de dentro do shopping para todos eles.</p></div>
+    <div class="pj-flow" aria-label="Status do pedido"><span data-i18n="st1">Preparando</span><i>→</i><span class="k" data-i18n="st2">Pronto</span><i>→</i><span data-i18n="st3">Retirado</span><i>→</i><span data-i18n="st4">Na cabine</span><i>→</i><span class="k" data-i18n="st5">Entregue</span></div>
+    <div class="pj-cards" style="margin-top:24px">
+      <div class="pj-card"><span class="tagx" data-i18n="sy1t">Celular</span><h3 data-i18n="sy1h">App do carregador</h3><p data-i18n="sy1">Pedidos prontos, cabine de destino, códigos de retirada e entrega, ganhos do turno.</p></div>
+      <div class="pj-card"><span class="tagx" data-i18n="sy2t">Tablet no balcão</span><h3 data-i18n="sy2h">Painel do restaurante</h3><p data-i18n="sy2">Marca o pedido como pronto, digita o código do carregador (código 1) e acompanha até a entrega.</p></div>
+      <div class="pj-card"><span class="tagx" data-i18n="sy3t">Tela na cabine</span><h3 data-i18n="sy3h">Totem do ponto</h3><p data-i18n="sy3">Mostra a fila da cabine e as motos chegando. O motoboy confirma o código do app dele (código 2).</p></div>
+    </div>
+    <p class="pj-note" data-i18n="syN">Meta de serviço proposta: do status "Pronto" até "Na cabine" em até 6 minutos.</p>
+  </div>
+</section>
+
+<section class="nsec chain-band" id="carrinho">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow r" data-i18n="pj2E">O carrinho</p><h2 data-i18n="pj2H">Formato que o shopping já conhece</h2><p data-i18n="pj2P">Parece um carrinho de compras, que já circula em qualquer shopping. A diferença é o cesto: uma caixa térmica fechada, acolchoada e com painel de LED.</p></div>
+    <div class="pj-fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 650" role="img" aria-label="Carrinho Tá na Mão em vista lateral, formato de carrinho de compras, com medidas"><rect x="0" y="588" width="800" height="4" fill="#D8C48F"/><path d="M205 548 L560 548" stroke="#1E1410" stroke-width="12" stroke-linecap="round"/><path d="M232 452 L214 548 M540 452 L552 548" stroke="#1E1410" stroke-width="12" stroke-linecap="round"/><rect x="244" y="496" width="290" height="30" rx="10" fill="#A8160F" stroke="#1E1410" stroke-width="4"/><rect x="262" y="470" width="34" height="28" rx="6" fill="#fff" stroke="#1E1410" stroke-width="3"/><rect x="316" y="470" width="34" height="28" rx="6" fill="#fff" stroke="#1E1410" stroke-width="3"/><rect x="370" y="470" width="34" height="28" rx="6" fill="#fff" stroke="#1E1410" stroke-width="3"/><rect x="424" y="470" width="34" height="28" rx="6" fill="#fff" stroke="#1E1410" stroke-width="3"/><rect x="478" y="470" width="34" height="28" rx="6" fill="#fff" stroke="#1E1410" stroke-width="3"/><path d="M548 470 L556 214 L640 146" fill="none" stroke="#1E1410" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><rect x="616" y="120" width="70" height="40" rx="20" fill="#FFC530" stroke="#1E1410" stroke-width="4" transform="rotate(-38 651 140)"/><rect x="596" y="186" width="44" height="64" rx="8" fill="#fff" stroke="#1E1410" stroke-width="4" transform="rotate(-38 618 218)"/><rect x="606" y="196" width="24" height="40" rx="4" fill="#3A2A21" transform="rotate(-38 618 218)"/><path d="M150 178 L572 178 L548 462 L224 462 Z" fill="#3A2A21" stroke="#3A2A21" stroke-width="30" stroke-linejoin="round"/><path d="M150 178 L572 178 L548 462 L224 462 Z" fill="#D9231D" stroke="#D9231D" stroke-width="6" stroke-linejoin="round"/><path d="M166 192 L556 192 L536 448 L236 448 Z" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2" stroke-dasharray="7 7"/><path d="M140 150 L582 150 Q590 150 588 160 L586 172 L136 172 L136 160 Q134 150 140 150 Z" fill="#A8160F" stroke="#1E1410" stroke-width="4"/><rect x="168" y="136" width="70" height="16" rx="6" fill="#1E1410"/><rect x="186" y="140" width="34" height="8" rx="4" fill="#FFC530"/><circle cx="566" cy="160" r="8" fill="#1E1410"/><path d="M210 226 L522 226 L508 380 L236 380 Z" fill="#1E1410"/><circle cx="222.0" cy="238" r="3.2" fill="#FFC530"/><circle cx="240.0" cy="368" r="3.2" fill="#FFC530"/><circle cx="240.6" cy="238" r="3.2" fill="#FFC530"/><circle cx="258.6" cy="368" r="3.2" fill="#FFC530"/><circle cx="259.2" cy="238" r="3.2" fill="#FFC530"/><circle cx="277.2" cy="368" r="3.2" fill="#FFC530"/><circle cx="277.8" cy="238" r="3.2" fill="#FFC530"/><circle cx="295.8" cy="368" r="3.2" fill="#FFC530"/><circle cx="296.4" cy="238" r="3.2" fill="#FFC530"/><circle cx="314.4" cy="368" r="3.2" fill="#FFC530"/><circle cx="315.0" cy="238" r="3.2" fill="#FFC530"/><circle cx="333.0" cy="368" r="3.2" fill="#FFC530"/><circle cx="333.6" cy="238" r="3.2" fill="#FFC530"/><circle cx="351.6" cy="368" r="3.2" fill="#FFC530"/><circle cx="352.2" cy="238" r="3.2" fill="#FFC530"/><circle cx="370.2" cy="368" r="3.2" fill="#FFC530"/><circle cx="370.8" cy="238" r="3.2" fill="#FFC530"/><circle cx="388.8" cy="368" r="3.2" fill="#FFC530"/><circle cx="389.4" cy="238" r="3.2" fill="#FFC530"/><circle cx="407.4" cy="368" r="3.2" fill="#FFC530"/><circle cx="408.0" cy="238" r="3.2" fill="#FFC530"/><circle cx="426.0" cy="368" r="3.2" fill="#FFC530"/><circle cx="426.6" cy="238" r="3.2" fill="#FFC530"/><circle cx="444.6" cy="368" r="3.2" fill="#FFC530"/><circle cx="445.2" cy="238" r="3.2" fill="#FFC530"/><circle cx="463.2" cy="368" r="3.2" fill="#FFC530"/><circle cx="463.8" cy="238" r="3.2" fill="#FFC530"/><circle cx="481.8" cy="368" r="3.2" fill="#FFC530"/><circle cx="482.4" cy="238" r="3.2" fill="#FFC530"/><circle cx="501.0" cy="238" r="3.2" fill="#FFC530"/><text x="372" y="300" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:30px" fill="#FFC530" >SUA MARCA AQUI</text><text x="372" y="330" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:600;font-size:16px" fill="#E6D9C2" >painel de LED nas duas laterais</text><text x="386" y="422" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:22px" fill="#fff" >TÁ NA MÃO</text><path d="M202 548 L202 566 L226 566 L226 548" fill="#1E1410"/><circle cx="214" cy="566" r="22" fill="#1E1410"/><circle cx="214" cy="566" r="12" fill="#8A7666"/><circle cx="214" cy="566" r="4" fill="#1E1410"/><path d="M540 548 L540 566 L564 566 L564 548" fill="#1E1410"/><circle cx="552" cy="566" r="22" fill="#1E1410"/><circle cx="552" cy="566" r="12" fill="#8A7666"/><circle cx="552" cy="566" r="4" fill="#1E1410"/><rect x="566" y="548" width="20" height="12" rx="3" fill="#FFC530" stroke="#1E1410" stroke-width="2"/><g stroke="#665448" stroke-width="2" fill="none"><path d="M70 120 V588"/><path d="M62 120 H78 M62 588 H78"/><path d="M136 616 H640"/><path d="M136 608 V624 M640 608 V624"/></g><text x="54" y="354" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:20px" fill="#1E1410" transform="rotate(-90 54 354)">100 cm</text><text x="388" y="644" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:19px" fill="#1E1410" >75 cm de comprimento · 50 cm de largura</text><path d="M720 100 L668 124" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="720" cy="100" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="720" y="106" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >1</text><path d="M110 110 L160 146" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="110" cy="110" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="110" y="116" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >2</text><path d="M110 300 L168 300" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="110" cy="300" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="110" y="306" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >3</text><path d="M720 300 L512 300" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="720" cy="300" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="720" y="306" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >4</text><path d="M110 450 L214 456" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="110" cy="450" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="110" y="456" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >5</text><path d="M720 470 L534 500" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="720" cy="470" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="720" y="476" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >6</text><path d="M720 556 L582 560" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="720" cy="556" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="720" y="562" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >7</text></svg></div>
+    <div class="pj-legend"><div><b class="n">1</b><span data-i18n="ca1"><b>Alça</b> emborrachada a 1 m do chão, com suporte para celular.</span></div><div><b class="n">2</b><span data-i18n="ca2"><b>Tampa térmica</b> com trava e lacre.</span></div><div><b class="n">3</b><span data-i18n="ca3"><b>Cesto térmico</b> no formato de carrinho de compras, com divisória. Cerca de 8 sacolas.</span></div><div><b class="n">4</b><span data-i18n="ca4"><b>Painel de LED</b> nas duas laterais, com anúncios. Brilho baixo, sem som.</span></div><div><b class="n">5</b><span data-i18n="ca5"><b>Para-choque de EVA</b> acolchoado em todo o contorno.</span></div><div><b class="n">6</b><span data-i18n="ca6"><b>Bandeja inferior</b> para copos e bebidas.</span></div><div><b class="n">7</b><span data-i18n="ca7"><b>Rodízios de 125 mm</b> de poliuretano, silenciosos, 2 com freio.</span></div></div>
+    <table class="pj-spec" style="margin-top:22px">
+      <tr><th data-i18n="cs1h">Medidas</th><td data-i18n="cs1">75 × 50 × 100 cm. Passa em portas, elevadores de serviço e corredores.</td></tr>
+      <tr><th data-i18n="cs2h">Estrutura</th><td data-i18n="cs2">Chassi de aço com pintura epóxi e cesto de plástico rotomoldado, leve e lavável.</td></tr>
+      <tr><th data-i18n="cs3h">Proteção</th><td data-i18n="cs3">EVA de 2 cm em todo o contorno e cantos arredondados: não danifica vitrines, mesas nem pessoas.</td></tr>
+      <tr><th data-i18n="cs4h">Mídia</th><td data-i18n="cs4">Painel de LED com anúncios das lojas da praça e de patrocinadores. Receita extra para a operação.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="nsec" id="equipe">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow r" data-i18n="pj3E">A equipe</p><h2 data-i18n="pj3H">Identificados de longe</h2><p data-i18n="pj3P">Ninguém pode confundir um carregador com alguém levando a comida de outra pessoa. Por isso, todos usam colete com crachá.</p></div>
+    <div class="pj-fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 600" role="img" aria-label="Colete do carregador, frente e costas"><path d="M115,40 L162,40 Q200,150 238,40 L285,40 L298,112 Q346,140 352,206 L352,520 L48,520 L48,206 Q54,140 102,112 Z" fill="#D9231D" stroke="#1E1410" stroke-width="6" stroke-linejoin="round"/><path d="M64,212 Q68,156 112,128 M336,212 Q332,156 288,128 M64,212 L64,504 L336,504 L336,212" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-dasharray="6 6"/><path d="M162,40 Q200,150 238,40" fill="none" stroke="#A8160F" stroke-width="16"/><rect x="48" y="372" width="304" height="36" fill="#FFC530"/><rect x="48" y="386" width="304" height="8" fill="#F4F1EA" opacity=".9"/><path d="M200 150 V520" stroke="#1E1410" stroke-width="4"/><rect x="192" y="168" width="16" height="26" rx="4" fill="#FFC530" stroke="#1E1410" stroke-width="2"/><rect x="82" y="194" width="20" height="10" rx="3" fill="#1E1410"/><rect x="70" y="204" width="96" height="124" rx="10" fill="#fff" stroke="#1E1410" stroke-width="3"/><circle cx="118" cy="236" r="16" fill="#E6D9C2"/><rect x="92" y="258" width="52" height="7" rx="3" fill="#1E1410"/><rect x="92.0" y="272" width="9" height="8" fill="#1E1410"/><rect x="134.0" y="272" width="9" height="8" fill="#1E1410"/><rect x="102.5" y="282" width="9" height="8" fill="#1E1410"/><rect x="113.0" y="282" width="9" height="8" fill="#1E1410"/><rect x="123.5" y="282" width="9" height="8" fill="#1E1410"/><rect x="92.0" y="292" width="9" height="8" fill="#1E1410"/><rect x="92.0" y="302" width="9" height="8" fill="#1E1410"/><rect x="102.5" y="302" width="9" height="8" fill="#1E1410"/><rect x="113.0" y="302" width="9" height="8" fill="#1E1410"/><rect x="123.5" y="302" width="9" height="8" fill="#1E1410"/><rect x="92.0" y="312" width="9" height="8" fill="#1E1410"/><rect x="102.5" y="312" width="9" height="8" fill="#1E1410"/><rect x="113.0" y="312" width="9" height="8" fill="#1E1410"/><rect x="123.5" y="312" width="9" height="8" fill="#1E1410"/><rect x="134.0" y="312" width="9" height="8" fill="#1E1410"/><rect x="226" y="206" width="104" height="44" rx="10" fill="#FFC530"/><text x="278" y="234" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:17px" fill="#1E1410" >TÁ NA MÃO</text><text x="278" y="278" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:15px" fill="#fff" >CARREGADOR</text><text x="278" y="298" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:600;font-size:13px" fill="#fff" >ID 0427</text><rect x="80" y="430" width="84" height="62" rx="8" fill="none" stroke="#A8160F" stroke-width="4"/><path d="M80 446 H164" stroke="#A8160F" stroke-width="3"/><rect x="236" y="430" width="84" height="62" rx="8" fill="none" stroke="#A8160F" stroke-width="4"/><path d="M236 446 H320" stroke="#A8160F" stroke-width="3"/><path d="M575,40 L622,40 Q660,70 698,40 L745,40 L758,112 Q806,140 812,206 L812,520 L508,520 L508,206 Q514,140 562,112 Z" fill="#D9231D" stroke="#1E1410" stroke-width="6" stroke-linejoin="round"/><path d="M524,212 Q528,156 572,128 M796,212 Q792,156 748,128 M524,212 L524,504 L796,504 L796,212" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-dasharray="6 6"/><path d="M622,40 Q660,70 698,40" fill="none" stroke="#A8160F" stroke-width="16"/><rect x="508" y="372" width="304" height="36" fill="#FFC530"/><rect x="508" y="386" width="304" height="8" fill="#F4F1EA" opacity=".9"/><text x="660" y="196" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:46px" fill="#FFC530" >TÁ NA</text><text x="660" y="250" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:58px" fill="#FFC530" >MÃO</text><text x="660" y="300" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:24px" fill="#fff" >CARREGADOR</text><text x="660" y="334" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:22px" fill="#fff" >0427</text><text x="660" y="462" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:18px" fill="#fff" >posso ajudar?</text><text x="200" y="580" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#665448" >FRENTE</text><text x="660" y="580" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#665448" >COSTAS</text><path d="M22 168 L80 206" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="22" cy="168" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="22" y="174" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >1</text><path d="M440 228 L330 228" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="440" cy="228" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="440" y="234" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >2</text><path d="M440 390 L352 390" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="440" cy="390" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="440" y="396" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >3</text><path d="M440 470 L326 466" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="440" cy="470" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="440" y="476" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >4</text><path d="M440 150 L210 180" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="440" cy="150" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="440" y="156" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >5</text><path d="M450 70 L610 110" stroke="#1E1410" stroke-width="2" stroke-dasharray="4 4"/><circle cx="450" cy="70" r="17" fill="#1E1410" stroke="#fff" stroke-width="3"/><text x="450" y="76" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#FFC530" >6</text></svg></div>
+    <div class="pj-legend"><div><b class="n">1</b><span data-i18n="ve1"><b>Crachá com foto e QR code</b> para conferência.</span></div><div><b class="n">2</b><span data-i18n="ve2"><b>Marca, função e ID</b> no peito.</span></div><div><b class="n">3</b><span data-i18n="ve3"><b>Faixa amarela com refletivo.</b></span></div><div><b class="n">4</b><span data-i18n="ve4"><b>Dois bolsos</b> para celular e bateria.</span></div><div><b class="n">5</b><span data-i18n="ve5"><b>Zíper e gola acolchoada.</b></span></div><div><b class="n">6</b><span data-i18n="ve6"><b>Costas com o nome grande</b> e "posso ajudar?".</span></div></div>
+    <div class="pj-two" style="margin-top:36px">
+      <div>
+        <h3 style="margin-bottom:14px" data-i18n="kitH">Kit e benefícios (proposta)</h3>
+        <ol class="pj-ladder">
+          <li><b class="w" data-i18n="k1w">1º dia</b><span data-i18n="k1"><strong>Colete e crachá.</strong> Tudo o que precisa para começar.</span></li>
+          <li><b class="w" data-i18n="k2w">300 entregas</b><span data-i18n="k2"><strong>2 camisetas dry fit.</strong> Leves para quem trabalha em movimento.</span></li>
+          <li><b class="w" data-i18n="k3w">Parceria</b><span data-i18n="k3"><strong>Tênis de uma marca brasileira.</strong> Quem trabalha em pé precisa de um bom par.</span></li>
+          <li><b class="w" data-i18n="k4w">Enquete</b><span data-i18n="k4"><strong>Patrocínio de água.</strong> Ponto de hidratação no ponto de entrega.</span></li>
+        </ol>
+      </div>
+      <form class="pj-poll" id="poll-form" novalidate>
+        <b data-i18n="pollQ">Enquete: qual marca de água você quer ver patrocinando a equipe?</b>
+        <fieldset>
+          <label for="poll-a"><input type="radio" id="poll-a" name="poll" value="a"><span data-i18n="pollA">Marca A</span></label>
+          <label for="poll-b"><input type="radio" id="poll-b" name="poll" value="b"><span data-i18n="pollB">Marca B</span></label>
+          <label for="poll-c"><input type="radio" id="poll-c" name="poll" value="c"><span data-i18n="pollC">Marca C</span></label>
+        </fieldset>
+        <p class="pj-note" id="poll-msg" data-i18n="pollN">Exemplo de enquete. As marcas serão definidas com os patrocinadores.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="nsec chain-band" id="ponto">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow r" data-i18n="pj4E">Onde fica o ponto</p><h2 data-i18n="pj4H">A praça fica no alto. O motoboy sobe tudo.</h2><p data-i18n="pj4P">Hoje o motoboy desce a rampa, estaciona, sobe a pé e pega duas escadas rolantes até o 2º piso. E faz tudo de volta. O carregador desce pelo elevador de serviço direto para a doca, onde fica o Ponto Tá na Mão.</p></div>
+    <div class="pj-fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" role="img" aria-label="Corte lateral do shopping: praça de alimentação no 2º piso"><rect width="1100" height="700" fill="#EAF0F2"/><rect x="0" y="500" width="1100" height="200" fill="#CFC4AE"/><rect x="90" y="510" width="690" height="126" rx="8" fill="#E2D8C2" stroke="#1E1410" stroke-width="4"/><text x="110" y="538" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:15px" fill="#665448" >SUBSOLO · ESTACIONAMENTO</text><rect x="240" y="596" width="56" height="30" rx="6" fill="#fff" stroke="#B8A794" stroke-width="2"/><rect x="314" y="596" width="56" height="30" rx="6" fill="#fff" stroke="#B8A794" stroke-width="2"/><rect x="388" y="596" width="56" height="30" rx="6" fill="#fff" stroke="#B8A794" stroke-width="2"/><rect x="462" y="596" width="56" height="30" rx="6" fill="#fff" stroke="#B8A794" stroke-width="2"/><rect x="536" y="596" width="56" height="30" rx="6" fill="#fff" stroke="#B8A794" stroke-width="2"/><rect x="610" y="596" width="56" height="30" rx="6" fill="#fff" stroke="#B8A794" stroke-width="2"/><rect x="684" y="596" width="56" height="30" rx="6" fill="#fff" stroke="#B8A794" stroke-width="2"/><path d="M790 600 L910 502" stroke="#1E1410" stroke-width="6"/><text x="872" y="596" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:14px" fill="#665448" >rampa</text><path d="M80 80 L435 30 L790 80 Z" fill="#D8C48F" stroke="#1E1410" stroke-width="4"/><rect x="90" y="80" width="690" height="420" fill="#FFF8E6" stroke="#1E1410" stroke-width="5"/><path d="M90 220 H780" stroke="#1E1410" stroke-width="5"/><path d="M90 360 H780" stroke="#1E1410" stroke-width="5"/><rect x="93" y="83" width="684" height="135" fill="#FFF0C2"/><text x="104" y="108" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:16px" fill="#1E1410" >2º PISO</text><text x="104" y="128" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:15px" fill="#D9231D" >Praça de alimentação</text><text x="104" y="246" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:16px" fill="#1E1410" >1º PISO</text><text x="104" y="266" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:600;font-size:14px" fill="#665448" >Lojas</text><text x="104" y="386" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:16px" fill="#1E1410" >TÉRREO</text><text x="104" y="406" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:600;font-size:14px" fill="#665448" >Lojas e entrada</text><rect x="300" y="100" width="60" height="40" rx="6" fill="#D9231D"/><text x="330" y="125" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:12px" fill="#fff" >Box 1</text><rect x="372" y="100" width="60" height="40" rx="6" fill="#D9231D"/><text x="402" y="125" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:12px" fill="#fff" >Box 2</text><rect x="444" y="100" width="60" height="40" rx="6" fill="#D9231D"/><text x="474" y="125" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:12px" fill="#fff" >Box 3</text><rect x="516" y="100" width="60" height="40" rx="6" fill="#D9231D"/><text x="546" y="125" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:12px" fill="#fff" >Box 4</text><rect x="588" y="100" width="60" height="40" rx="6" fill="#D9231D"/><text x="618" y="125" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:12px" fill="#fff" >Box 5</text><rect x="150" y="176" width="40" height="8" rx="3" fill="#8A7666"/><path d="M156 184 V216 M184 184 V216" stroke="#8A7666" stroke-width="3"/><rect x="226" y="176" width="40" height="8" rx="3" fill="#8A7666"/><path d="M232 184 V216 M260 184 V216" stroke="#8A7666" stroke-width="3"/><rect x="302" y="176" width="40" height="8" rx="3" fill="#8A7666"/><path d="M308 184 V216 M336 184 V216" stroke="#8A7666" stroke-width="3"/><rect x="378" y="176" width="40" height="8" rx="3" fill="#8A7666"/><path d="M384 184 V216 M412 184 V216" stroke="#8A7666" stroke-width="3"/><rect x="454" y="176" width="40" height="8" rx="3" fill="#8A7666"/><path d="M460 184 V216 M488 184 V216" stroke="#8A7666" stroke-width="3"/><rect x="530" y="176" width="40" height="8" rx="3" fill="#8A7666"/><path d="M536 184 V216 M564 184 V216" stroke="#8A7666" stroke-width="3"/><rect x="230" y="280" width="64" height="76" rx="4" fill="#EADAB0"/><rect x="310" y="280" width="64" height="76" rx="4" fill="#EADAB0"/><rect x="390" y="280" width="64" height="76" rx="4" fill="#EADAB0"/><rect x="470" y="280" width="64" height="76" rx="4" fill="#EADAB0"/><rect x="230" y="420" width="64" height="76" rx="4" fill="#EADAB0"/><rect x="310" y="420" width="64" height="76" rx="4" fill="#EADAB0"/><rect x="390" y="420" width="64" height="76" rx="4" fill="#EADAB0"/><rect x="470" y="420" width="64" height="76" rx="4" fill="#EADAB0"/><path d="M560 498 L640 362" stroke="#8A7666" stroke-width="12" stroke-linecap="round"/><path d="M560 358 L640 222" stroke="#8A7666" stroke-width="12" stroke-linecap="round"/><text x="548" y="300" text-anchor="end" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#665448" >escada rolante</text><text x="548" y="440" text-anchor="end" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#665448" >escada rolante</text><rect x="166" y="440" width="22" height="60" fill="#8A7666"/><text x="177" y="432" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:12px" fill="#665448" >escada</text><text x="177" y="528" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:1px" fill="#1E1410" ></text><path d="M177 500 V510" stroke="#8A7666" stroke-width="22"/><rect x="692" y="84" width="56" height="412" fill="#3A2A21"/><rect x="699" y="120" width="42" height="60" rx="4" fill="#5A4A3F"/><rect x="699" y="260" width="42" height="60" rx="4" fill="#5A4A3F"/><rect x="699" y="400" width="42" height="60" rx="4" fill="#5A4A3F"/><text x="792" y="150" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:14px" fill="#1E1410" >← elevador</text><text x="808" y="168" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:14px" fill="#1E1410" >de serviço</text><rect x="774" y="420" width="12" height="80" fill="#FFF8E6"/><text x="790" y="412" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:14px" fill="#1E1410" >doca</text><rect x="786" y="492" width="314" height="10" fill="#B8A794"/><rect x="830" y="396" width="110" height="96" rx="12" fill="#D9231D" stroke="#1E1410" stroke-width="4"/><text x="885" y="428" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:14px" fill="#fff" >PONTO</text><text x="885" y="448" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:14px" fill="#FFC530" >TÁ NA MÃO</text><text x="885" y="470" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:600;font-size:11px" fill="#fff" >cabine + totem</text><circle cx="960" cy="478" r="12" fill="#1E1410"/><circle cx="1000" cy="478" r="12" fill="#1E1410"/><path d="M960 478 L976 458 H990 L1000 478" fill="none" stroke="#1E1410" stroke-width="5"/><circle cx="1030" cy="478" r="12" fill="#1E1410"/><circle cx="1070" cy="478" r="12" fill="#1E1410"/><path d="M1030 478 L1046 458 H1060 L1070 478" fill="none" stroke="#1E1410" stroke-width="5"/><text x="1000" y="446" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:13px" fill="#1E1410" >motos</text><path d="M905 496 L790 588 H177 V470 H560 L640 362 H560 L640 222 H420 V150" fill="none" stroke="#8A7666" stroke-width="7" stroke-dasharray="14 10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="850" cy="540" r="16" fill="#8A7666" stroke="#fff" stroke-width="3"/><text x="850" y="546" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:16px" fill="#fff" >1</text><circle cx="260" cy="588" r="16" fill="#8A7666" stroke="#fff" stroke-width="3"/><text x="260" y="594" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:16px" fill="#fff" >2</text><circle cx="177" cy="470" r="16" fill="#8A7666" stroke="#fff" stroke-width="3"/><text x="177" y="476" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:16px" fill="#fff" >3</text><circle cx="600" cy="292" r="16" fill="#8A7666" stroke="#fff" stroke-width="3"/><text x="600" y="298" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:16px" fill="#fff" >4</text><circle cx="420" cy="160" r="16" fill="#8A7666" stroke="#fff" stroke-width="3"/><text x="420" y="166" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:16px" fill="#fff" >5</text><path d="M618 140 V160 H692 M720 180 V440 M748 452 H826" fill="none" stroke="#D9231D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M808 440 L828 452 L808 464" fill="none" stroke="#D9231D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(20 640)"><rect width="1060" height="54" rx="10" fill="#fff" stroke="#D8C48F" stroke-width="2"/><path d="M16 18 H64" stroke="#8A7666" stroke-width="7" stroke-dasharray="14 10"/><text x="76" y="23" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:14px" fill="#1E1410" >Motoboy hoje: 1 desce a rampa · 2 estaciona · 3 sobe a pé · 4 duas escadas rolantes · 5 espera no box. E volta tudo.</text><path d="M16 40 H64" stroke="#D9231D" stroke-width="9" stroke-linecap="round"/><text x="76" y="45" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:14px" fill="#1E1410" >Carregador Tá na Mão: box → elevador de serviço → doca → cabine. O motoboy espera na rua.</text></g></svg></div>
+    <div class="pj-fig" style="margin-top:18px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" role="img" aria-label="Planta do 2º piso com o caminho do motoboy e do carregador"><rect width="1000" height="680" fill="#F3EAD3"/><rect x="60" y="40" width="880" height="560" rx="14" fill="#FFF8E6" stroke="#1E1410" stroke-width="5"/><text x="80" y="74" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:16px" fill="#665448" >PLANTA · 2º PISO</text><rect x="80" y="90" width="580" height="230" rx="10" fill="#FFF0C2" stroke="#FFC530" stroke-width="3"/><rect x="96" y="102" width="66" height="46" rx="6" fill="#D9231D"/><text x="129" y="131" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#fff" >Box 1</text><rect x="176" y="102" width="66" height="46" rx="6" fill="#D9231D"/><text x="209" y="131" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#fff" >Box 2</text><rect x="256" y="102" width="66" height="46" rx="6" fill="#D9231D"/><text x="289" y="131" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#fff" >Box 3</text><rect x="336" y="102" width="66" height="46" rx="6" fill="#D9231D"/><text x="369" y="131" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#fff" >Box 4</text><rect x="416" y="102" width="66" height="46" rx="6" fill="#D9231D"/><text x="449" y="131" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#fff" >Box 5</text><rect x="496" y="102" width="66" height="46" rx="6" fill="#D9231D"/><text x="529" y="131" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#fff" >Box 6</text><rect x="576" y="102" width="66" height="46" rx="6" fill="#D9231D"/><text x="609" y="131" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#fff" >Box 7</text><circle cx="124" cy="186" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="190" cy="186" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="256" cy="186" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="322" cy="186" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="388" cy="186" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="454" cy="186" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="520" cy="186" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="586" cy="186" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="124" cy="228" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="190" cy="228" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="256" cy="228" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="322" cy="228" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="388" cy="228" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="454" cy="228" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="520" cy="228" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="586" cy="228" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="124" cy="270" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="190" cy="270" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="256" cy="270" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="322" cy="270" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="388" cy="270" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="454" cy="270" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="520" cy="270" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><circle cx="586" cy="270" r="13" fill="#fff" stroke="#D8C48F" stroke-width="2"/><text x="370" y="312" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:18px" fill="#1E1410" >Praça de alimentação</text><rect x="80" y="456" width="84" height="124" rx="6" fill="#EADAB0"/><rect x="176" y="456" width="84" height="124" rx="6" fill="#EADAB0"/><rect x="272" y="456" width="84" height="124" rx="6" fill="#EADAB0"/><rect x="368" y="456" width="84" height="124" rx="6" fill="#EADAB0"/><rect x="464" y="456" width="84" height="124" rx="6" fill="#EADAB0"/><rect x="560" y="456" width="84" height="124" rx="6" fill="#EADAB0"/><text x="340" y="524" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:16px" fill="#665448" >Lojas</text><rect x="96" y="352" width="160" height="58" rx="8" fill="#D8C48F"/><text x="176" y="378" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:13px" fill="#1E1410" >Escadas rolantes</text><text x="176" y="398" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:600;font-size:12px" fill="#665448" >vindo do térreo</text><rect x="420" y="352" width="130" height="58" rx="8" fill="#D8C48F"/><text x="485" y="378" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:13px" fill="#1E1410" >Elevador social</text><text x="485" y="398" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:600;font-size:12px" fill="#665448" >com fila</text><rect x="690" y="90" width="230" height="490" rx="10" fill="#E6DCCB" stroke="#B8A794" stroke-width="2" stroke-dasharray="8 6"/><text x="805" y="116" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:15px" fill="#665448" >Área de serviço</text><rect x="716" y="140" width="178" height="74" rx="8" fill="#fff" stroke="#1E1410" stroke-width="2"/><text x="805" y="172" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:14px" fill="#1E1410" >Base do carregador</text><text x="805" y="194" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:600;font-size:13px" fill="#665448" >carrinhos e coletes</text><rect x="750" y="400" width="110" height="84" rx="8" fill="#1E1410"/><text x="805" y="438" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:14px" fill="#FFC530" >Elevador</text><text x="805" y="458" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:14px" fill="#FFC530" >de serviço</text><text x="805" y="512" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#1E1410" >desce direto</text><text x="805" y="530" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:13px" fill="#1E1410" >para a doca</text><path d="M256 381 H284 V438 H676 V340 H560 V150 M546 150 V340 H284 V381" fill="none" stroke="#8A7666" stroke-width="7" stroke-dasharray="14 10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="284" cy="438" r="16" fill="#8A7666" stroke="#fff" stroke-width="3"/><text x="284" y="444" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:15px" fill="#fff" >↑</text><circle cx="676" cy="386" r="16" fill="#8A7666" stroke="#fff" stroke-width="3"/><text x="676" y="392" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:15px" fill="#fff" >↔</text><circle cx="560" cy="176" r="16" fill="#8A7666" stroke="#fff" stroke-width="3"/><text x="560" y="182" text-anchor="middle" style="font-family:'Inter','Helvetica',sans-serif;font-weight:800;font-size:15px" fill="#fff" >⏱</text><path d="M609 148 V170 H700 V230 H805 V396" fill="none" stroke="#D9231D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M793 380 L805 396 L817 380" fill="none" stroke="#D9231D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(80 612)"><rect width="860" height="52" rx="12" fill="#fff" stroke="#D8C48F" stroke-width="2"/><path d="M18 26 H70" stroke="#8A7666" stroke-width="7" stroke-dasharray="14 10"/><text x="80" y="32" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:15px" fill="#1E1410" >Motoboy hoje: sobe, contorna, espera, volta</text><path d="M470 26 H520" stroke="#D9231D" stroke-width="9" stroke-linecap="round"/><text x="532" y="32" text-anchor="start" style="font-family:'Inter','Helvetica',sans-serif;font-weight:700;font-size:15px" fill="#1E1410" >Carregador: box → elevador de serviço</text></g></svg></div>
+    <p class="pj-note" data-i18n="mapN">Desenhos ilustrativos. Os rótulos dos desenhos estão em português.</p>
+    <div class="pj-cards" style="margin-top:24px">
+      <div class="pj-card"><h3 data-i18n="cr1h">Perto do serviço</h3><p data-i18n="cr1">Ligado ao corredor e ao elevador de serviço, sem cruzar a área de clientes.</p></div>
+      <div class="pj-card"><h3 data-i18n="cr2h">Saída para a rua</h3><p data-i18n="cr2">Doca ou porta lateral com acesso direto, sem cancela de estacionamento.</p></div>
+      <div class="pj-card"><h3 data-i18n="cr3h">Baia de motos</h3><p data-i18n="cr3">Vagas rápidas ao lado da cabine, só para parar e pegar.</p></div>
+      <div class="pj-card"><h3 data-i18n="cr4h">Coberto</h3><p data-i18n="cr4">Cabine protegida de sol e chuva.</p></div>
+      <div class="pj-card"><h3 data-i18n="cr5h">Visível</h3><p data-i18n="cr5">Sinalizado no app e na fachada.</p></div>
+      <div class="pj-card"><h3 data-i18n="cr6h">Seguro</h3><p data-i18n="cr6">Com câmera e acompanhamento da segurança do shopping.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="nsec" id="proximos">
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow r" data-i18n="pj5E">Próximos passos</p><h2 data-i18n="pj5H">Do protótipo ao piloto</h2></div>
+    <ol class="pj-ladder">
+      <li><b class="w" data-i18n="r1w">✓ Feito</b><span data-i18n="rr1"><strong>Problema, solução e telas do app.</strong></span></li>
+      <li><b class="w" data-i18n="r2w">Etapa 2</b><span data-i18n="rr2"><strong>Validar com motoboys e restaurantes.</strong> Medir o tempo real dentro do shopping.</span></li>
+      <li><b class="w" data-i18n="r3w">Etapa 3</b><span data-i18n="rr3"><strong>Protótipo físico do carrinho e do colete.</strong></span></li>
+      <li><b class="w" data-i18n="r4w">Etapa 4</b><span data-i18n="rr4"><strong>Piloto de 30 dias em um shopping.</strong> Medir tempo, pedidos por hora e avaliação dos motoboys.</span></li>
+      <li><b class="w" data-i18n="r5w">Etapa 5</b><span data-i18n="rr5"><strong>Expandir para outros shoppings.</strong></span></li>
+    </ol>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:32px">
+      <a class="more" style="margin-top:0" href="#contato" data-i18n="pjC">Falar com a criadora →</a>
+      <a class="more" style="margin-top:0;background:transparent;border:2px solid var(--ink);color:var(--ink)" href="#inicio" data-i18n="pjBack2">← Voltar para a apresentação</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<main id="view-bastidores" hidden>
+<section class="nhero">
+  <div class="wrap">
+    <a class="back" href="#inicio" data-i18n="bkBack">← Voltar para a apresentação</a>
+    <p class="eyebrow" style="color:var(--yellow); margin-top:20px" data-i18n="bkE">Bastidores</p>
+    <h1 data-i18n="bkH">Um projeto construído em público</h1>
+    <p data-i18n="bkP">Da primeira tela à apresentação completa: cada etapa do Tá na Mão, com as datas e os posts publicados no LinkedIn.</p>
+  </div>
+</section>
+<section class="nsec">
+  <div class="wrap">
+    <ol class="tl">
+      <li><span class="when" data-i18n="b1d">29 de outubro de 2026</span><h3 data-i18n="b1h">A ideia e o nome</h3><p data-i18n="b1">A quarta parte do delivery ganha nome, cores e as primeiras telas do app do carregador, no tamanho de um celular.</p><span class="chip ok" data-i18n="ok">Feito</span></li>
+      <li><span class="when" data-i18n="b2d">29 de outubro de 2026</span><h3 data-i18n="b2h">O site em três idiomas</h3><p data-i18n="b2">Apresentação em português, inglês e espanhol, com aviso de autoria e contato.</p><span class="chip ok" data-i18n="ok2">Feito</span></li>
+      <li><span class="when" data-i18n="b3d">24 de novembro de 2026</span><h3 data-i18n="b3h">Números do mercado e o projeto em detalhe</h3><p data-i18n="b3">Dados de shoppings e delivery, simulador de ganhos, desenho do carrinho, do colete e do ponto de entrega.</p><div class="row2"><img src="bastidores/4-carrinho.jpg" alt="Desenho do carrinho Tá na Mão com medidas" width="540" height="675" loading="lazy"><p data-i18n="b3x">O carrinho foi pensado no formato de carrinho de compras, que todo shopping já conhece, com cesto térmico e painel de LED.</p></div><span class="chip ok" data-i18n="ok3">Feito</span></li>
+      <li class="post"><span class="when" data-i18n="p1d">25 de novembro · Post 1</span><h3 data-i18n="p1h">O problema: 17 minutos dentro do shopping</h3><div class="row2"><img src="bastidores/1-problema.jpg" alt="Capa do post 1: No delivery, cada minuto conta" width="540" height="540" loading="lazy"><p data-i18n="p1">A série começa pelo problema: quanto tempo o motoboy perde para estacionar, atravessar o shopping, esperar no balcão e voltar.</p></div><span class="chip" data-i18n="ag">Agendado</span></li>
+      <li class="post"><span class="when" data-i18n="p2d">27 de novembro · Post 2</span><h3 data-i18n="p2h">A solução em construção</h3><div class="row2"><img src="bastidores/2-solucao.jpg" alt="Capa do post 2: E se o motoboy nem entrasse no shopping?" width="540" height="540" loading="lazy"><p data-i18n="p2">A hipótese: um carregador que trabalha só dentro do shopping, com dois códigos de confirmação.</p></div><span class="chip" data-i18n="eb1">Em breve</span></li>
+      <li class="post"><span class="when" data-i18n="p3d">30 de novembro · Post 3</span><h3 data-i18n="p3h">O projeto completo</h3><div class="row2"><img src="bastidores/3-projeto.jpg" alt="Capa do post 3: Tá na Mão, o projeto completo" width="540" height="675" loading="lazy"><p data-i18n="p3">O nome, o carrinho, a equipe, os benefícios, o ponto de entrega e o sistema por dentro.</p></div><span class="chip" data-i18n="eb2">Em breve</span></li>
+      <li><span class="when" data-i18n="nxd">Próximo passo</span><h3 data-i18n="nxh">Validar com quem vive isso todo dia</h3><p data-i18n="nx">Conversar com motoboys, restaurantes e um shopping interessado em um piloto de 30 dias.</p></li>
+    </ol>
+    <a class="more" href="#contato" data-i18n="bkC">Falar com a criadora →</a>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap" data-i18n="ft">Tá na Mão · protótipo conceitual de Leticia Costa</div></footer>
+
+<script>
+(function(){
+  var T = {
+    en: {
+      "tb1":"Pitch", "tb2":"Project", "tb3":"Numbers", "tb4":"Behind the scenes", "bkBack":"← Back to the pitch", "bkE":"Behind the scenes", "bkH":"A project built in public", "bkP":"From the first screen to the full presentation: every stage of Tá na Mão, with dates and the posts published on LinkedIn.", "b1d":"October 29, 2026", "b1h":"The idea and the name", "b1":"The fourth part of delivery gets a name, colors and the first screens of the runner app, at phone size.", "ok":"Done", "ok2":"Done", "ok3":"Done", "b2d":"October 29, 2026", "b2h":"The website in three languages", "b2":"Pitch in Portuguese, English and Spanish, with an authorship notice and contact.", "b3d":"November 24, 2026", "b3h":"Market numbers and the detailed project", "b3":"Mall and delivery data, an earnings simulator, and drawings of the cart, the vest and the handoff point.", "b3x":"The cart takes the shape of a shopping cart, which every mall already knows, with a thermal basket and an LED panel.", "p1d":"November 25 · Post 1", "p1h":"The problem: 17 minutes inside the mall", "p1":"The series starts with the problem: how much time the courier loses parking, crossing the mall, waiting at the counter and walking back.", "ag":"Scheduled", "p2d":"November 27 · Post 2", "p2h":"The solution in progress", "p2":"The hypothesis: a runner who works only inside the mall, with two confirmation codes.", "eb1":"Coming soon", "p3d":"November 30 · Post 3", "p3h":"The full project", "p3":"The name, the cart, the team, the benefits, the handoff point and the system inside.", "eb2":"Coming soon", "nxd":"Next step", "nxh":"Validate with the people who live this every day", "nx":"Talk to couriers, restaurants and a mall interested in a 30-day pilot.", "bkC":"Contact the creator →",
+      "cta3":"See the full project", "moreP":"See the full project →", "pjBack":"← Back to the pitch", "pjBack2":"← Back to the pitch", "pjE":"The full project", "pjH":"How Tá na Mão works inside", "pjP":"The system, the cart, the team, the benefits and where the handoff point sits. All specifications are an initial proposal, to be validated with suppliers and with each mall.", "pj1E":"The system", "pj1H":"Five statuses, two codes, three screens", "pj1P":"Every order changes hands with a confirmation. Tá na Mão replaces no delivery app: it organizes the stretch inside the mall for all of them.", "st1":"Preparing", "st2":"Ready", "st3":"Picked up", "st4":"At the booth", "st5":"Delivered", "sy1t":"Phone", "sy1h":"Runner app", "sy1":"Ready orders, destination booth, pickup and handoff codes, shift earnings.", "sy2t":"Counter tablet", "sy2h":"Restaurant panel", "sy2":"Marks the order as ready, types the runner's code (code 1) and follows it until delivery.", "sy3t":"Booth screen", "sy3h":"Booth kiosk", "sy3":"Shows the booth queue and the bikes arriving. The courier confirms the code from their own app (code 2).", "syN":"Proposed service goal: from \"Ready\" to \"At the booth\" in up to 6 minutes.", "pj2E":"The cart", "pj2H":"A shape every mall already knows", "pj2P":"It looks like a shopping cart, which already moves through any mall. The difference is the basket: a closed, padded thermal box with an LED panel.", "ca1":"<b>Handle</b> with rubber grip at 1 m, with phone holder.", "ca2":"<b>Thermal lid</b> with lock and seal.", "ca3":"<b>Thermal basket</b> shaped like a shopping cart, with a divider. About 8 bags.", "ca4":"<b>LED panel</b> on both sides, with ads. Low brightness, no sound.", "ca5":"<b>EVA bumper</b> padded all around.", "ca6":"<b>Lower tray</b> for cups and drinks.", "ca7":"<b>125 mm casters</b> in polyurethane, silent, 2 with brakes.", "cs1h":"Size", "cs1":"75 × 50 × 100 cm. Fits through doors, service elevators and corridors.", "cs2h":"Structure", "cs2":"Epoxy-painted steel frame and a light, washable rotomolded plastic basket.", "cs3h":"Protection", "cs3":"2 cm EVA all around and rounded corners: no damage to windows, tables or people.", "cs4h":"Media", "cs4":"LED panel with ads from food court stores and sponsors. Extra revenue for the operation.", "pj3E":"The team", "pj3H":"Recognizable from afar", "pj3P":"Nobody should mistake a runner for someone walking off with another person's food. That's why everyone wears a vest with an ID badge.", "ve1":"<b>Photo badge with QR code</b> for checking.", "ve2":"<b>Brand, role and ID</b> on the chest.", "ve3":"<b>Yellow stripe with reflective band.</b>", "ve4":"<b>Two pockets</b> for phone and battery.", "ve5":"<b>Zipper and padded collar.</b>", "ve6":"<b>Big name on the back</b> and \"can I help?\".", "kitH":"Kit and benefits (proposal)", "k1w":"Day 1", "k1":"<strong>Vest and badge.</strong> Everything needed to start.", "k2w":"300 deliveries", "k2":"<strong>2 dry fit T-shirts.</strong> Light for people on the move.", "k3w":"Partnership", "k3":"<strong>Sneakers from a Brazilian brand.</strong> People on their feet all shift need a good pair.", "k4w":"Poll", "k4":"<strong>Water sponsorship.</strong> Hydration point at the handoff booth.", "pollQ":"Poll: which water brand would you like to see sponsoring the team?", "pollA":"Brand A", "pollB":"Brand B", "pollC":"Brand C", "pollN":"Sample poll. Brands will be defined with sponsors.", "pollT":"Vote saved on this device. Thank you!", "pj4E":"Where the booth goes", "pj4H":"The food court is up high. The courier climbs it all.", "pj4P":"Today the courier drives down the ramp, parks, walks up and takes two escalators to the 2nd floor. Then does it all again on the way back. The runner takes the service elevator straight down to the loading dock, where the Tá na Mão booth sits.", "mapN":"Illustrative drawings. Labels inside the drawings are in Portuguese.", "cr1h":"Close to service areas", "cr1":"Connected to the service corridor and elevator, without crossing customer areas.", "cr2h":"Street access", "cr2":"Loading dock or side door with direct access, no parking gate.", "cr3h":"Bike bay", "cr3":"Quick spots next to the booth, just to stop and pick up.", "cr4h":"Covered", "cr4":"Booth protected from sun and rain.", "cr5h":"Visible", "cr5":"Marked in the app and on the building.", "cr6h":"Safe", "cr6":"Camera coverage and mall security support.", "pj5E":"Next steps", "pj5H":"From prototype to pilot", "r1w":"✓ Done", "rr1":"<strong>Problem, solution and app screens.</strong>", "r2w":"Stage 2", "rr2":"<strong>Validate with couriers and restaurants.</strong> Measure the real time spent inside the mall.", "r3w":"Stage 3", "rr3":"<strong>Physical prototype of the cart and vest.</strong>", "r4w":"Stage 4", "rr4":"<strong>30-day pilot in one mall.</strong> Measure time, orders per hour and courier ratings.", "r5w":"Stage 5", "rr5":"<strong>Expand to other malls.</strong>", "pjC":"Contact the creator →",
+      eyebrow:"Prototype · original concept",
+      lead:"The missing link in mall delivery: someone who carries the order from the food court straight into the courier's hands at the door.",
+      author:"Original idea by <b>Leticia Costa</b> · registered on October 29, 2026",
+      cta1:"Contact the creator", cta2:"See how it works", mock:"Prototype screen",
+      f1:"per delivery for the runner", f2:"per shift, no vehicle", f3:"confirmation codes per order", f4:"parking spots used by the courier",
+      pE:"The problem", pH:"Inside the mall, couriers lose time they should spend on the road",
+      pP:"Every order placed at a food court forces the courier to leave the motorbike, enter the building and walk a route that has nothing to do with delivering.",
+      p1t:"Park", p1:"Finding a spot for the motorbike, and paying or negotiating to get into the parking lot.",
+      p2t:"Cross the mall", p2:"Walking with helmet and bag through corridors, escalators and elevators to reach the food court.",
+      p3t:"Wait at the counter", p3:"Competing for space with customers and other couriers while the order isn't ready.",
+      p4t:"Walk back", p4:"Making the whole trip back while the food cools down in the bag.",
+      cE:"The solution", cH:"The fourth part of delivery",
+      cP:"Delivery apps connect three parties: the customer, the restaurant and the courier. Tá na Mão adds a fourth, the runner, who works between the restaurant and the courier, inside the mall.",
+      l1t:"Customer", l1:"Orders through the delivery app, just like today.",
+      l2t:"Restaurant", l2:"Prepares the order at its food court stand.",
+      l3t:"Tá na Mão runner", l3:"Picks up at the counter and walks it, with a cart, to the booth at the door.",
+      l4t:"Courier", l4:"Stops at the booth, takes the order and heads to the customer.",
+      cN:"Customers change nothing about how they order. The change happens inside the mall, on a stretch nobody organizes today.",
+      sE:"How it works", sH:"From counter to booth, with two codes",
+      s1t:"The order is ready", s1:"The app shows the runners on shift which orders just left the kitchen and which booth they go to.",
+      s2t:"Pickup with a code", s2:"The runner shows a code at the counter. The restaurant confirms and the order is assigned to them.",
+      s3t:"To the booth", s3:"With a branded cart, the runner takes the order to the booth at the entrance, side door or loading dock, seeing in the app when the bike arrives.",
+      s4t:"Handoff with a code", s4:"The courier gives the code from their own app. Once confirmed, the order changes hands and the runner is paid for the delivery.",
+      wE:"Why it makes sense", wH:"Everyone in the chain wins",
+      w1t:"Couriers", w1:"No parking and no walking into the mall. They stop at the door, grab the order and go, fitting more rides into the same time.",
+      w2t:"Restaurants", w2:"Fewer couriers crowding the counter, more organized handoffs and fewer mixed-up orders, thanks to code confirmation.",
+      w3t:"Malls", w3:"Fewer motorbikes in the parking lot and fewer couriers in corridors and the food court. More control over who comes and goes.",
+      w4t:"Young runners", w4:"Work with no motorbike, car or driver's license, in 4 to 5 hour shifts, earning R$1 to R$2 per delivery. An entry point to a first job.",
+      w5t:"Customers", w5:"The order gets from the restaurant to the bike faster, and the food arrives hotter.",
+      w6t:"Delivery apps", w6:"Faster, more predictable pickup on mall orders, with the order tracked along the whole route.",
+      mE:"The right moment", mH:"Why now", mP:"The circumstances that make Tá na Mão viable today.",
+      r1t:"Delivery became a habit", r1:"Food courts handle more and more app orders, on top of the customers who eat on site.",
+      r2t:"The bottleneck already exists", r2:"Lines of motorbikes at the door and couriers waiting at counters are a common sight in big-city malls.",
+      r3t:"Small setup", r3:"All it takes is a booth or meeting point, carts and the app. No vehicles and no large investment.",
+      r4t:"Starts small, grows fast", r4:"The model can start as a pilot in a single mall and then spread to other malls in the city.",
+      r5t:"Work for beginners", r5:"Many young people look for part-time income close to home, without needing their own vehicle.",
+      r6t:"Fits what already works", r6:"Tá na Mão replaces no app. It adds to the flow customers, restaurants and couriers already use.",
+      kE:"Contact", kH:"Let's make it happen",
+      kP:"Want to invest, run a pilot in a mall or integrate it with your delivery app? Talk directly to the creator of the idea.",
+      kR:"Creator of Tá na Mão", kL:"Phone and WhatsApp", kC:"Copy number", kW:"Message on WhatsApp", kS:"The chat opens with a message about Tá na Mão already written. If the button doesn't open, copy the number above.",
+      wa:"Hi, Leticia! I saw the Tá na Mão website (the app for runners who carry orders from the mall food court to the courier at the door) and I'd like to talk about the idea.",
+      gE:"Legal notice", gH:"Authorship and rights reserved",
+      g1:"<strong>This website presents a conceptual prototype.</strong> Tá na Mão is not yet in operation and has no affiliation with any delivery app, restaurant or mall mentioned generically on this page.",
+      g2:"The idea, the name “Tá na Mão”, the operating model, the screens and the texts presented here are authored by <strong>Leticia Costa</strong> and were made public on this page on <strong>October 29, 2026</strong>.",
+      g3:"<strong>I do not authorize</strong> the copying, reproduction, adaptation, appropriation or commercial use of this concept, in whole or in part, without my prior written consent. Anyone interested in the project should get in touch by the phone number above.",
+      g4:"This content is protected by the Brazilian Copyright Law (Law No. 9,610/1998) and the Brazilian Industrial Property Law (Law No. 9,279/1996), where applicable. If translations differ, the Portuguese version prevails.",
+      moreL:"See the market numbers →", nBack:"← Back to the pitch", nBack2:"← Back to the pitch", nE:"Market numbers", nH:"The size of the opportunity", nP:"Public data on malls, food courts and delivery in Brazil that shows why Tá na Mão makes sense. Sources are listed at the end of the page.",
+      n1E:"Brazilian malls in 2025", n1H:"A R$200 billion a year market", t1v:"R$200.9 bn", t1:"sold in malls in 2025, an all-time record", t2v:"≈ R$16.7 bn", t2:"per month on average (annual sales divided by 12)", t3v:"471 M", t3:"visits per month", t4:"malls in 253 cities", t5v:"124.7 K", t5:"stores in operation", t6:"average stay per visit, also a record",
+      c1H:"Annual mall sales", c1S:"In billions of reais. The market is large and stable, growing a little each year.", c1L1:"calculated from the 1.2% growth", c1L2:"official figure", c1L3:"Abrasce projection",
+      c2H:"Food inside the mall", c2S:"Share of mall visitors (Abrasce survey, 2023).", c2a:"Eat at the food court", c2b:"Have bought from ice cream shops", c2c:"Choose a mall for its food variety", c2d:"Eat at sit-down restaurants", c2e:"Go to cafés",
+      c3H:"Food became a reason to go to the mall", c3S:"Share who name food as a reason for the visit.", c3N:"It almost doubled in seven years. Food is now the third most cited reason to go to a mall.",
+      c4H:"How much of the mall is food", c4S:"Of the roughly 25,000 brands in malls, 4,400 are food brands.", c4o:"82% other segments", c4l:"Food", c4a:"Mall food stores that are franchises", c4b:"Store area taken by food in Ancar Ivanhoe malls",
+      n2E:"Delivery", n2H:"App ordering has already reached the mall", d1v:"≈ 100 M", dd1:"orders per month on iFood alone (July 2024)", dd2:"of mall visitors have bought from a mall through an app, WhatsApp or virtual assistant", dd3:"of those people received the purchase by delivery",
+      hubH:"The market already sees the problem", hubP1:"Since 2019, iFood has set up pickup points (iFood Hub) in malls such as Shopping Leblon, Plaza Sul and SuperShopping Osasco. A messenger carries the order from the kitchen to the hub, and the courier picks it up there. According to iFood, most malls already have a hub for the food court.", hubP2:"This shows the bottleneck inside the mall is real. Tá na Mão proposes organizing that stretch for every delivery app at once, with runners paid per delivery and codes that confirm every handoff.",
+      sE2:"Simulation", sH2:"How much a runner can earn", sP2:"Drag the sliders or type the numbers to see the result. The starting values are only an example, not real data from a mall.", sL1:"Delivery orders per day at the mall", sL2:"Pay per delivery (R$)", sL3:"Runners that day", sL4:"Days worked per month", sO1:"Deliveries per runner per day", sO2:"Earnings per runner per day", sO3:"Earnings per runner per month", sO4:"Total paid to runners per month",
+      gapH:"What public data doesn't show yet", gap1:"We found no official figure for what share of all restaurants in Brazil are inside malls, or for how much of mall sales comes from food or delivery. This data can be gathered directly with malls and apps during a pilot.", srcH:"Sources", src1:"· Abrasce, 2025 results (Feb. 2026)", src2:"· Brazilian mall survey, Abrasce (2023)", src3:"· Mall store mix, Abrasce (2024)", src4:"· store mix and food (2023)", src5:"· iFood orders and mall hubs (Jul. 2024)", src6:"· iFood Hub at SuperShopping Osasco (Jan. 2026)",
+      dE:"Inside the app", dH:"See the app in action", dP:"The screens the runner uses at each stage. Tap a stage or the buttons on the phone to switch screens. (The app screens stay in Portuguese.)",
+      d0t:"Opening", d0:"The runner opens the app and starts the shift.", d1t:"Ready orders", d1:"Sees the orders that just got ready, which booth they go to and how much each one pays.", d2t:"Counter pickup", d2:"Shows the code to the restaurant and checks the bags.", d3t:"Handoff at the booth", d3:"Takes the order to the booth and confirms with the courier's code.", d4t:"Delivery done", d4:"Gets paid for the delivery and can grab the next order.", dPa:"Pause", dPl:"Play",
+      gR:"All rights reserved", gD:"Published on 10/29/2026", ft:"Tá na Mão · conceptual prototype by Leticia Costa", copied:"Copied", isNew:"New"
+    },
+    es: {
+      "tb1":"Presentación", "tb2":"Proyecto", "tb3":"Números", "tb4":"Detrás de escena", "bkBack":"← Volver a la presentación", "bkE":"Detrás de escena", "bkH":"Un proyecto construido en público", "bkP":"De la primera pantalla a la presentación completa: cada etapa de Tá na Mão, con fechas y los posts publicados en LinkedIn.", "b1d":"29 de octubre de 2026", "b1h":"La idea y el nombre", "b1":"La cuarta parte del delivery recibe nombre, colores y las primeras pantallas de la app del cargador, en tamaño celular.", "ok":"Hecho", "ok2":"Hecho", "ok3":"Hecho", "b2d":"29 de octubre de 2026", "b2h":"El sitio en tres idiomas", "b2":"Presentación en portugués, inglés y español, con aviso de autoría y contacto.", "b3d":"24 de noviembre de 2026", "b3h":"Números del mercado y el proyecto en detalle", "b3":"Datos de centros comerciales y delivery, simulador de ganancias y dibujos del carrito, del chaleco y del punto de entrega.", "b3x":"El carrito tiene forma de carrito de compras, que todo centro comercial ya conoce, con canasta térmica y panel LED.", "p1d":"25 de noviembre · Post 1", "p1h":"El problema: 17 minutos dentro del centro comercial", "p1":"La serie empieza por el problema: cuánto tiempo pierde el repartidor estacionando, cruzando el centro comercial, esperando en el mostrador y volviendo.", "ag":"Programado", "p2d":"27 de noviembre · Post 2", "p2h":"La solución en construcción", "p2":"La hipótesis: un cargador que trabaja solo dentro del centro comercial, con dos códigos de confirmación.", "eb1":"Próximamente", "p3d":"30 de noviembre · Post 3", "p3h":"El proyecto completo", "p3":"El nombre, el carrito, el equipo, los beneficios, el punto de entrega y el sistema por dentro.", "eb2":"Próximamente", "nxd":"Próximo paso", "nxh":"Validar con quienes lo viven todos los días", "nx":"Conversar con repartidores, restaurantes y un centro comercial interesado en un piloto de 30 días.", "bkC":"Hablar con la creadora →",
+      "cta3":"Ver el proyecto completo", "moreP":"Ver el proyecto completo →", "pjBack":"← Volver a la presentación", "pjBack2":"← Volver a la presentación", "pjE":"El proyecto completo", "pjH":"Cómo funciona Tá na Mão por dentro", "pjP":"El sistema, el carrito, el equipo, los beneficios y dónde queda el punto de entrega. Todas las especificaciones son una propuesta inicial, a validar con proveedores y con cada centro comercial.", "pj1E":"El sistema", "pj1H":"Cinco estados, dos códigos, tres pantallas", "pj1P":"Cada pedido cambia de manos con confirmación. Tá na Mão no reemplaza ninguna app de delivery: organiza el tramo dentro del centro comercial para todas.", "st1":"Preparando", "st2":"Listo", "st3":"Retirado", "st4":"En la cabina", "st5":"Entregado", "sy1t":"Celular", "sy1h":"App del cargador", "sy1":"Pedidos listos, cabina de destino, códigos de retiro y entrega, ganancias del turno.", "sy2t":"Tablet en el mostrador", "sy2h":"Panel del restaurante", "sy2":"Marca el pedido como listo, ingresa el código del cargador (código 1) y lo sigue hasta la entrega.", "sy3t":"Pantalla en la cabina", "sy3h":"Tótem del punto", "sy3":"Muestra la fila de la cabina y las motos llegando. El repartidor confirma el código de su app (código 2).", "syN":"Meta de servicio propuesta: de \"Listo\" a \"En la cabina\" en hasta 6 minutos.", "pj2E":"El carrito", "pj2H":"Una forma que el centro comercial ya conoce", "pj2P":"Parece un carrito de compras, que ya circula en cualquier centro comercial. La diferencia es la canasta: una caja térmica cerrada, acolchada y con panel LED.", "ca1":"<b>Manija</b> engomada a 1 m del piso, con soporte para celular.", "ca2":"<b>Tapa térmica</b> con traba y precinto.", "ca3":"<b>Canasta térmica</b> con forma de carrito de compras, con divisor. Unas 8 bolsas.", "ca4":"<b>Panel LED</b> en ambos lados, con anuncios. Brillo bajo, sin sonido.", "ca5":"<b>Paragolpes de EVA</b> acolchado en todo el contorno.", "ca6":"<b>Bandeja inferior</b> para vasos y bebidas.", "ca7":"<b>Ruedas de 125 mm</b> de poliuretano, silenciosas, 2 con freno.", "cs1h":"Medidas", "cs1":"75 × 50 × 100 cm. Pasa por puertas, ascensores de servicio y pasillos.", "cs2h":"Estructura", "cs2":"Chasis de acero con pintura epoxi y canasta de plástico rotomoldado, liviana y lavable.", "cs3h":"Protección", "cs3":"EVA de 2 cm en todo el contorno y esquinas redondeadas: no daña vidrieras, mesas ni personas.", "cs4h":"Medios", "cs4":"Panel LED con anuncios de los locales del patio y de patrocinadores. Ingreso extra para la operación.", "pj3E":"El equipo", "pj3H":"Identificados de lejos", "pj3P":"Nadie debe confundir a un cargador con alguien que se lleva la comida de otra persona. Por eso todos usan chaleco con credencial.", "ve1":"<b>Credencial con foto y código QR</b> para verificación.", "ve2":"<b>Marca, función e ID</b> en el pecho.", "ve3":"<b>Franja amarilla con reflectivo.</b>", "ve4":"<b>Dos bolsillos</b> para celular y batería.", "ve5":"<b>Cierre y cuello acolchado.</b>", "ve6":"<b>Nombre grande en la espalda</b> y \"¿puedo ayudar?\".", "kitH":"Kit y beneficios (propuesta)", "k1w":"Día 1", "k1":"<strong>Chaleco y credencial.</strong> Todo lo necesario para empezar.", "k2w":"300 entregas", "k2":"<strong>2 camisetas dry fit.</strong> Livianas para quien trabaja en movimiento.", "k3w":"Alianza", "k3":"<strong>Zapatillas de una marca brasileña.</strong> Quien trabaja de pie necesita un buen par.", "k4w":"Encuesta", "k4":"<strong>Patrocinio de agua.</strong> Punto de hidratación en la cabina.", "pollQ":"Encuesta: ¿qué marca de agua querés ver patrocinando al equipo?", "pollA":"Marca A", "pollB":"Marca B", "pollC":"Marca C", "pollN":"Encuesta de ejemplo. Las marcas se definirán con los patrocinadores.", "pollT":"Voto guardado en este dispositivo. ¡Gracias!", "pj4E":"Dónde queda el punto", "pj4H":"El patio de comidas está arriba. El repartidor sube todo.", "pj4P":"Hoy el repartidor baja la rampa, estaciona, sube a pie y toma dos escaleras mecánicas hasta el 2º piso. Y hace todo de vuelta. El cargador baja por el ascensor de servicio directo al muelle de carga, donde está el punto Tá na Mão.", "mapN":"Dibujos ilustrativos. Las etiquetas de los dibujos están en portugués.", "cr1h":"Cerca del servicio", "cr1":"Conectado al pasillo y al ascensor de servicio, sin cruzar el área de clientes.", "cr2h":"Salida a la calle", "cr2":"Muelle o puerta lateral con acceso directo, sin barrera de estacionamiento.", "cr3h":"Bahía de motos", "cr3":"Lugares rápidos junto a la cabina, solo para parar y retirar.", "cr4h":"Cubierto", "cr4":"Cabina protegida del sol y la lluvia.", "cr5h":"Visible", "cr5":"Señalizado en la app y en la fachada.", "cr6h":"Seguro", "cr6":"Con cámara y apoyo de la seguridad del centro comercial.", "pj5E":"Próximos pasos", "pj5H":"Del prototipo al piloto", "r1w":"✓ Hecho", "rr1":"<strong>Problema, solución y pantallas de la app.</strong>", "r2w":"Etapa 2", "rr2":"<strong>Validar con repartidores y restaurantes.</strong> Medir el tiempo real dentro del centro comercial.", "r3w":"Etapa 3", "rr3":"<strong>Prototipo físico del carrito y del chaleco.</strong>", "r4w":"Etapa 4", "rr4":"<strong>Piloto de 30 días en un centro comercial.</strong> Medir tiempo, pedidos por hora y evaluación de los repartidores.", "r5w":"Etapa 5", "rr5":"<strong>Expandir a otros centros comerciales.</strong>", "pjC":"Hablar con la creadora →",
+      eyebrow:"Prototipo · concepto original",
+      lead:"El eslabón que faltaba en el delivery de centros comerciales: alguien que lleva el pedido desde el patio de comidas hasta las manos del repartidor, en la puerta.",
+      author:"Idea original de <b>Leticia Costa</b> · registrada el 29 de octubre de 2026",
+      cta1:"Hablar con la creadora", cta2:"Ver cómo funciona", mock:"Pantalla del prototipo",
+      f1:"por entrega para el cargador", f2:"por turno, sin vehículo", f3:"códigos de confirmación por pedido", f4:"lugares de estacionamiento usados por el repartidor",
+      pE:"El problema", pH:"Dentro del centro comercial, el repartidor pierde tiempo que debería estar en la calle",
+      pP:"Cada pedido hecho en un patio de comidas obliga al repartidor a dejar la moto, entrar al edificio y hacer un recorrido que no tiene nada que ver con entregar.",
+      p1t:"Estacionar", p1:"Encontrar lugar para la moto y pagar o negociar la entrada al estacionamiento.",
+      p2t:"Cruzar el centro comercial", p2:"Subir con casco y mochila por pasillos, escaleras mecánicas y ascensores hasta el patio de comidas.",
+      p3t:"Esperar en el mostrador", p3:"Disputar espacio con clientes y otros repartidores mientras el pedido no sale.",
+      p4t:"Volver", p4:"Hacer todo el camino de regreso mientras la comida se enfría en la mochila.",
+      cE:"La solución", cH:"La cuarta parte del delivery",
+      cP:"Las apps de delivery conectan tres partes: quien pide, el restaurante y el repartidor. Tá na Mão crea la cuarta, el cargador, que trabaja entre el restaurante y el repartidor, dentro del centro comercial.",
+      l1t:"Cliente", l1:"Hace el pedido en la app de delivery, como ya lo hace hoy.",
+      l2t:"Restaurante", l2:"Prepara el pedido en su local del patio de comidas.",
+      l3t:"Cargador Tá na Mão", l3:"Retira en el mostrador y lo lleva a pie, con un carrito, hasta la cabina de la puerta.",
+      l4t:"Repartidor", l4:"Pasa por la cabina, toma el pedido y sigue hacia el cliente.",
+      cN:"El cliente no cambia nada en su forma de pedir. El cambio ocurre dentro del centro comercial, en un tramo que hoy nadie organiza.",
+      sE:"Cómo funciona", sH:"Del mostrador a la cabina, con dos códigos",
+      s1t:"El pedido está listo", s1:"La app muestra a los cargadores del turno qué pedidos acaban de salir de la cocina y a qué cabina van.",
+      s2t:"Retiro con código", s2:"El cargador muestra un código en el mostrador. El restaurante confirma y el pedido pasa a su nombre.",
+      s3t:"Hasta la cabina", s3:"Con un carrito personalizado, lleva el pedido a la cabina de la entrada, el lateral o el muelle de carga, viendo en la app cuándo llega la moto.",
+      s4t:"Entrega con código", s4:"El repartidor informa el código de su app. Confirmado, el pedido cambia de manos y el cargador cobra por la entrega.",
+      wE:"Por qué tiene sentido", wH:"Todos en la cadena salen ganando",
+      w1t:"Repartidores", w1:"No necesitan estacionar ni entrar al centro comercial. Pasan por la puerta, toman el pedido y siguen, haciendo más viajes en el mismo tiempo.",
+      w2t:"Restaurantes", w2:"Menos repartidores esperando en el mostrador, entregas más ordenadas y menos pedidos cambiados, gracias a la confirmación por código.",
+      w3t:"Centros comerciales", w3:"Menos motos en el estacionamiento y menos repartidores en pasillos y en el patio de comidas. Más control sobre quién entra y sale.",
+      w4t:"Jóvenes cargadores", w4:"Trabajo sin necesidad de moto, auto ni licencia de conducir, en turnos de 4 a 5 horas, ganando de R$ 1 a R$ 2 por entrega. Una puerta de entrada al primer empleo.",
+      w5t:"Clientes", w5:"El pedido pasa del restaurante a la moto más rápido y la comida llega más caliente.",
+      w6t:"Apps de delivery", w6:"Retiro más rápido y previsible en los pedidos de centros comerciales, con seguimiento del pedido en todo el trayecto.",
+      mE:"El momento justo", mH:"Por qué ahora", mP:"Las circunstancias que hacen viable a Tá na Mão hoy.",
+      r1t:"El delivery se volvió hábito", r1:"Los patios de comidas atienden cada vez más pedidos por app, además de los clientes que comen en el lugar.",
+      r2t:"El cuello de botella ya existe", r2:"Filas de motos en la puerta y repartidores esperando en los mostradores son escenas comunes en los centros comerciales de las grandes ciudades.",
+      r3t:"Estructura pequeña", r3:"Solo hace falta una cabina o punto de encuentro, carritos y la app. Sin vehículos ni gran inversión.",
+      r4t:"Empieza pequeño, crece rápido", r4:"El modelo puede comenzar como piloto en un solo centro comercial y luego extenderse a otros de la ciudad.",
+      r5t:"Trabajo para quien empieza", r5:"Muchos jóvenes buscan ingresos de medio tiempo, cerca de casa y sin vehículo propio.",
+      r6t:"Encaja en lo que ya funciona", r6:"Tá na Mão no reemplaza ninguna app. Se suma al flujo que clientes, restaurantes y repartidores ya usan.",
+      kE:"Contacto", kH:"Hagamos realidad la idea",
+      kP:"¿Quiere invertir, probarlo en un centro comercial o integrarlo con su app de delivery? Hable directamente con la creadora de la idea.",
+      kR:"Creadora de Tá na Mão", kL:"Teléfono y WhatsApp", kC:"Copiar número", kW:"Escribir por WhatsApp", kS:"La conversación se abre con un mensaje sobre Tá na Mão ya escrito. Si el botón no abre, copie el número de arriba.",
+      wa:"¡Hola, Leticia! Vi el sitio de Tá na Mão (la app de cargadores que llevan pedidos del patio de comidas hasta el repartidor en la puerta del centro comercial) y quiero conversar sobre la idea.",
+      gE:"Aviso legal", gH:"Autoría y derechos reservados",
+      g1:"<strong>Este sitio presenta un prototipo conceptual.</strong> Tá na Mão aún no está en funcionamiento y no tiene vínculo con ninguna app de delivery, restaurante o centro comercial mencionado de forma genérica en esta página.",
+      g2:"La idea, el nombre “Tá na Mão”, el modelo de funcionamiento, las pantallas y los textos aquí presentados son de autoría de <strong>Leticia Costa</strong> y fueron hechos públicos en esta página el <strong>29 de octubre de 2026</strong>.",
+      g3:"<strong>No autorizo</strong> la copia, reproducción, adaptación, apropiación o explotación comercial de este concepto, total o parcial, sin mi autorización previa y por escrito. Quien tenga interés en el proyecto debe ponerse en contacto por el teléfono indicado arriba.",
+      g4:"Este contenido está protegido por la Ley de Derechos de Autor de Brasil (Ley nº 9.610/1998) y la Ley de Propiedad Industrial de Brasil (Ley nº 9.279/1996), en lo que sea aplicable. En caso de divergencia entre las traducciones, prevalece la versión en portugués.",
+      moreL:"Ver los números del mercado →", nBack:"← Volver a la presentación", nBack2:"← Volver a la presentación", nE:"Números del mercado", nH:"El tamaño de la oportunidad", nP:"Datos públicos sobre centros comerciales, patios de comidas y delivery en Brasil que muestran por qué Tá na Mão tiene sentido. Las fuentes están al final de la página.",
+      n1E:"Centros comerciales en Brasil en 2025", n1H:"Un mercado de R$ 200 mil millones al año", t1v:"R$ 200,9 mil mill.", t1:"vendidos en centros comerciales en 2025, récord histórico", t2v:"≈ R$ 16,7 mil mill.", t2:"por mes en promedio (facturación anual dividida por 12)", t3v:"471 mill.", t3:"de visitas por mes", t4:"centros comerciales en 253 ciudades", t5v:"124,7 mil", t5:"tiendas en funcionamiento", t6:"de permanencia media por visita, otro récord",
+      c1H:"Facturación anual de los centros comerciales", c1S:"En miles de millones de reales. El mercado es grande y estable, y crece un poco cada año.", c1L1:"calculado a partir del alza de 1,2%", c1L2:"dato oficial", c1L3:"proyección de Abrasce",
+      c2H:"La comida dentro del centro comercial", c2S:"Porcentaje de los visitantes (encuesta Abrasce, 2023).", c2a:"Comen en el patio de comidas", c2b:"Ya compraron en heladerías", c2c:"Eligen el centro comercial por la variedad de comida", c2d:"Comen en restaurantes con mesa", c2e:"Van a cafeterías",
+      c3H:"La comida se volvió motivo para ir al centro comercial", c3S:"Porcentaje que cita la comida como motivo de la visita.", c3N:"Casi se duplicó en siete años. Hoy la comida es el tercer motivo más citado.",
+      c4H:"Cuánto del centro comercial es comida", c4S:"De las cerca de 25 mil marcas presentes, 4,4 mil son de alimentación.", c4o:"82% otros segmentos", c4l:"Alimentación", c4a:"Locales de comida en centros comerciales que son franquicias", c4b:"Área de tiendas ocupada por alimentación en los centros de Ancar Ivanhoe",
+      n2E:"Delivery", n2H:"El pedido por app ya llegó al centro comercial", d1v:"≈ 100 mill.", dd1:"de pedidos por mes solo en iFood (julio de 2024)", dd2:"de los visitantes ya compraron de un centro comercial por app, WhatsApp o asistente virtual", dd3:"de esas personas recibieron la compra por delivery",
+      hubH:"El mercado ya reconoce el problema", hubP1:"Desde 2019, iFood instala puntos de retiro (iFood Hub) en centros comerciales como Shopping Leblon, Plaza Sul y SuperShopping Osasco. Un mensajero lleva el pedido de la cocina al hub y el repartidor lo retira allí. Según iFood, la mayoría de los centros comerciales ya tiene un hub para el patio de comidas.", hubP2:"Esto muestra que el cuello de botella dentro del centro comercial es real. Tá na Mão propone organizar ese tramo para cualquier app de delivery al mismo tiempo, con cargadores que cobran por entrega y códigos que confirman cada traspaso.",
+      sE2:"Simulación", sH2:"Cuánto puede ganar un cargador", sP2:"Arrastre las barras o escriba los números para ver el resultado. Los valores iniciales son solo un ejemplo, no datos reales de un centro comercial.", sL1:"Pedidos de delivery por día en el centro comercial", sL2:"Pago por entrega (R$)", sL3:"Cargadores en el día", sL4:"Días trabajados en el mes", sO1:"Entregas por cargador al día", sO2:"Ganancia por cargador al día", sO3:"Ganancia por cargador al mes", sO4:"Total pagado a los cargadores al mes",
+      gapH:"Lo que los datos públicos aún no muestran", gap1:"No encontramos una cifra oficial sobre qué porcentaje de todos los restaurantes del país está en centros comerciales, ni sobre cuánto de la facturación viene de la comida o del delivery. Estos datos pueden obtenerse directamente con los centros comerciales y las apps en un piloto.", srcH:"Fuentes", src1:"· Abrasce, balance de 2025 (feb. 2026)", src2:"· Radiografía de los centros comerciales, Abrasce (2023)", src3:"· Mix de tiendas, Abrasce (2024)", src4:"· mix de tiendas y alimentación (2023)", src5:"· pedidos de iFood y hubs en centros comerciales (jul. 2024)", src6:"· iFood Hub en SuperShopping Osasco (ene. 2026)",
+      dE:"La app por dentro", dH:"Mire la app en acción", dP:"Las pantallas que usa el cargador en cada etapa. Toque una etapa o los botones del celular para cambiar de pantalla. (Las pantallas de la app están en portugués.)",
+      d0t:"Apertura", d0:"El cargador abre la app y empieza su turno.", d1t:"Pedidos listos", d1:"Ve los pedidos que acaban de estar listos, a qué cabina van y cuánto gana con cada uno.", d2t:"Retiro en el mostrador", d2:"Muestra el código al restaurante y revisa las bolsas.", d3t:"Entrega en la cabina", d3:"Lleva el pedido hasta la cabina y confirma con el código del repartidor.", d4t:"Entrega completada", d4:"Cobra por la entrega y ya puede tomar el próximo pedido.", dPa:"Pausar", dPl:"Reproducir",
+      gR:"Todos los derechos reservados", gD:"Publicado el 29/10/2026", ft:"Tá na Mão · prototipo conceptual de Leticia Costa", copied:"Copiado", isNew:"Nuevo"
+    }
+  };
+  var nodes = document.querySelectorAll('[data-i18n]');
+  var PT = {pollT:"Voto registrado neste aparelho. Obrigado!", copied:"Copiado", isNew:"Novo", dPl:"Reproduzir", wa:"Olá, Leticia! Vi o site do Tá na Mão (app de carregadores que levam pedidos da praça de alimentação até o motoboy na porta do shopping) e quero conversar sobre a ideia."};
+  nodes.forEach(function(n){ PT[n.getAttribute('data-i18n')] = n.innerHTML; });
+  T.pt = PT;
+  var current = 'pt';
+  function apply(lang){
+    var d = T[lang] || PT; current = lang;
+    nodes.forEach(function(n){ var k = n.getAttribute('data-i18n'); if (d[k] != null) n.innerHTML = d[k]; });
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+    document.getElementById('link-new').setAttribute('data-new', d.isNew);
+    document.getElementById('wa-link').href = 'https://wa.me/5521999169354?text=' + encodeURIComponent(d.wa);
+    if (window.__tnmPlayLabel) window.__tnmPlayLabel();
+    if (window.__tnmSim) window.__tnmSim();
+    document.querySelectorAll('.langs button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'); });
+    try { localStorage.setItem('tnm-lang', lang); } catch(e){}
+  }
+  document.querySelectorAll('.langs button').forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.lang); }); });
+  try { var saved = localStorage.getItem('tnm-lang'); if (saved && T[saved] && saved !== 'pt') apply(saved); } catch(e){}
+
+  // rotas: apresentação e página de números
+  var V = {home:document.getElementById('view-home'), numeros:document.getElementById('view-numeros'), projeto:document.getElementById('view-projeto'), bastidores:document.getElementById('view-bastidores')};
+  function showView(k){ Object.keys(V).forEach(function(n){ V[n].hidden = n !== k; }); document.querySelectorAll('.tabs a').forEach(function(a){ if (a.dataset.tab === k) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); }); }
+  function route(){
+    var h = (location.hash || '').replace('#', '');
+    if (V[h] && h !== 'home') { showView(h); window.scrollTo(0, 0); return; }
+    if (!h || h === 'inicio') { showView('home'); window.scrollTo(0, 0); return; }
+    var el = document.getElementById(h), k = 'home';
+    Object.keys(V).forEach(function(n){ if (el && V[n].contains(el)) k = n; });
+    showView(k); if (el) el.scrollIntoView();
+  }
+  document.getElementById('poll-form').addEventListener('change', function(){ var d = T[current] || PT; document.getElementById('poll-msg').textContent = d.pollT || 'Voto registrado neste aparelho. Obrigado!'; });
+  document.getElementById('poll-form').addEventListener('submit', function(e){ e.preventDefault(); });
+  window.addEventListener('hashchange', route); route();
+
+  // simulação de ganhos
+  function simNum(id){ var v = parseFloat(String(document.getElementById(id).value).replace(',', '.')); return isFinite(v) && v >= 0 ? v : 0; }
+  function setOut(id, text){ var el = document.getElementById(id); if (el.textContent === text) return; el.textContent = text; el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
+  window.__tnmSim = function(){
+    var loc = current === 'en' ? 'en-US' : (current === 'es' ? 'es-ES' : 'pt-BR');
+    var money = function(v){ try { return v.toLocaleString(loc, {style:'currency', currency:'BRL'}); } catch(e){ return 'R$ ' + v.toFixed(2); } };
+    var ped = simNum('sim-pedidos'), val = simNum('sim-valor'), car = Math.max(1, simNum('sim-carregadores')), dias = simNum('sim-dias');
+    var porCar = ped / car;
+    setOut('o1', Math.round(porCar).toLocaleString(loc));
+    setOut('o2', money(porCar * val));
+    setOut('o3', money(porCar * val * dias));
+    setOut('o4', money(ped * val * dias));
+  };
+  ['sim-pedidos','sim-valor','sim-carregadores','sim-dias'].forEach(function(id){
+    var box = document.getElementById(id), rng = document.getElementById(id + '-r');
+    rng.addEventListener('input', function(){ box.value = id === 'sim-valor' ? Number(rng.value).toFixed(2) : rng.value; });
+    box.addEventListener('input', function(){ var v = parseFloat(String(box.value).replace(',', '.')); if (isFinite(v)) rng.value = v; });
+  });
+  document.getElementById('sim-form').addEventListener('input', window.__tnmSim);
+  document.getElementById('sim-form').addEventListener('submit', function(e){ e.preventDefault(); });
+  window.__tnmSim();
+
+  // demo do celular
+  var scr = Array.prototype.slice.call(document.querySelectorAll('.S'));
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.demo-steps button'));
+  var playBtn = document.getElementById('demo-play'), playTxt = document.getElementById('demo-play-txt');
+  var idx = 0, timer = null;
+  var playing = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function show(n){
+    idx = n;
+    scr.forEach(function(s, k){ var on = k === n; s.classList.toggle('is-on', on); s.inert = !on; s.setAttribute('aria-hidden', on ? 'false' : 'true'); });
+    tabs.forEach(function(t, k){ t.setAttribute('aria-pressed', k === n ? 'true' : 'false'); });
+  }
+  function stop(){ if (timer) { clearInterval(timer); timer = null; } }
+  function start(){ stop(); if (playing) timer = setInterval(function(){ show((idx + 1) % scr.length); }, 3600); }
+  window.__tnmPlayLabel = function(){ var d = T[current] || PT; playTxt.textContent = playing ? d.dPa : d.dPl; playBtn.setAttribute('aria-pressed', playing ? 'true' : 'false'); };
+  function pauseByUser(){ playing = false; stop(); window.__tnmPlayLabel(); }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ show(+t.dataset.show); pauseByUser(); }); });
+  document.querySelectorAll('.S [data-go]').forEach(function(b){ b.addEventListener('click', function(){ show(+b.dataset.go); pauseByUser(); }); });
+  playBtn.addEventListener('click', function(){ playing = !playing; window.__tnmPlayLabel(); start(); });
+  show(0); window.__tnmPlayLabel(); start();
+
+  var btn = document.getElementById('copy-btn'), num = document.getElementById('phone');
+  btn.addEventListener('click', function(){
+    var text = num.textContent.trim();
+    function done(){ var old = btn.textContent; btn.textContent = T[current].copied; setTimeout(function(){ btn.textContent = (T[current].kC); }, 1600); }
+    function fallback(){ var r = document.createRange(); r.selectNodeContents(num); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch(e){ fallback(); }
+  });
+})();
+</script>
